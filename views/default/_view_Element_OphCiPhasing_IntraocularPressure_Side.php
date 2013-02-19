@@ -1,6 +1,6 @@
 <?php if($element->{'has'.$side}()) { ?>
 <div class="data">
-	<?php echo $element->{strtolower($side).'_instrument'}->name ?>
+	<?php echo $element->{strtolower($side).'_instrument'}->name ?> <?php if($element->{strtolower($side).'_dilated'}) { ?>(dilated)<?php } ?>
 </div>
 <div class="data">
 	<table>

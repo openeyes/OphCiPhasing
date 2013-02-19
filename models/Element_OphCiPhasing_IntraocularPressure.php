@@ -26,6 +26,8 @@
  * @property integer $eye_id
  * @property integer $left_instrument_id
  * @property integer $right_instrument_id
+ * @property boolean $left_dilated
+ * @property boolean $right_dilated
  * @property string $left_comments
  * @property string $right_comments
  */
@@ -55,17 +57,18 @@ class Element_OphCiPhasing_IntraocularPressure extends SplitEventTypeElement {
 		// will receive user inputs.
 		return array(
 				array('eye_id', 'required'),
-				array('right_instrument_id', 'requiredIfSide', 'side' => 'right'),
-				array('left_instrument_id', 'requiredIfSide', 'side' => 'left'),
+				array('right_instrument_id, right_dilated', 'requiredIfSide', 'side' => 'right'),
+				array('left_instrument_id, left_dilated', 'requiredIfSide', 'side' => 'left'),
 				array('event_id, left_comments, right_comments', 'safe'),
 				// The following rule is used by search().
 				// Please remove those attributes that should not be searched.
-				array('id, event_id, eye_id, left_comments, right_comments, left_instrument_id, right_instrument_id', 'safe', 'on' => 'search'),
+				array('id, event_id, eye_id, left_comments, right_comments, left_instrument_id,
+						right_instrument_id, right_dilated, left_dilated', 'safe', 'on' => 'search'),
 		);
 	}
 	
 	public function sidedFields() {
-		return array('comments','instrument_id');
+		return array('comments','instrument_id','dilated');
 	}
 	
 	/**
@@ -99,7 +102,9 @@ class Element_OphCiPhasing_IntraocularPressure extends SplitEventTypeElement {
 				'left_comments' => 'Comments',
 				'right_comments' => 'Comments',
 				'left_instrument_id' => 'Instrument',
-				'right_instrument_id' => 'Instrument'
+				'right_instrument_id' => 'Instrument',
+				'left_dilated' => 'Dilated',
+				'right_dilated' => 'Dilated',
 		);
 	}
 

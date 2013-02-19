@@ -35,49 +35,48 @@
 			data-side="right">
 			<div class="activeForm">
 				<a href="#" class="removeSide">-</a>
-				<div class="data">
-					<label for="Element_OphCiPhasing_IntraocularPressure_right_instrument_id">Instrument:</label>
-					<?php echo CHtml::dropDownList('Element_OphCiPhasing_IntraocularPressure[right_instrument_id]', $element->right_instrument_id, $instruments); ?>
-				</div>
-				<div class="data">
-					<table>
-						<thead>
-							<tr>
-								<th>Time (HH:MM)</th>
-								<th>mm Hg</th>
-							</tr>
-						</thead>
-						<tbody>
-							<?php
-							$right_readings = (isset($_POST['intraocularpressure_readings_valid']) ? $element->convertReadings(@$_POST['intraocularpressure_reading'], 'right') : $element->right_readings);
-								if($right_readings) {
-									foreach($right_readings as $index => $reading) { 
+				<?php echo $form->dropDownList($element, 'right_instrument_id', $instruments)?>
+				<?php echo $form->radioBoolean($element, 'right_dilated')?>
+				<div class="eventDetail">
+					<div class="label">Readings:</div>
+					<div class="data">
+						<table>
+							<thead>
+								<tr>
+									<th>Time (HH:MM)</th>
+									<th>mm Hg</th>
+								</tr>
+							</thead>
+							<tbody>
+								<?php
+								$right_readings = (isset($_POST['intraocularpressure_readings_valid']) ? $element->convertReadings(@$_POST['intraocularpressure_reading'], 'right') : $element->right_readings);
+									if($right_readings) {
+										foreach($right_readings as $index => $reading) { 
+											$this->renderPartial('_form_Element_OphCiPhasing_IntraocularPressure_Reading', array(
+												'key' => $key,
+												'reading' => $reading,
+												'side' => $reading->side,
+												'no_remove' => ($index == 0)
+											));
+											$key++;
+										}
+									} else { 
 										$this->renderPartial('_form_Element_OphCiPhasing_IntraocularPressure_Reading', array(
 											'key' => $key,
-											'reading' => $reading,
-											'side' => $reading->side,
-											'no_remove' => ($index == 0)
+											'side' => 0,
+											'no_remove' => true
 										));
 										$key++;
 									}
-								} else { 
-									$this->renderPartial('_form_Element_OphCiPhasing_IntraocularPressure_Reading', array(
-										'key' => $key,
-										'side' => 0,
-										'no_remove' => true
-									));
-									$key++;
-								}
-							?>
-						</tbody>
-					</table>
-					<button class="addReading classy green mini" type="button">
-						<span class="button-span button-span-green">Add</span>
-					</button>
+								?>
+							</tbody>
+						</table>
+						<button class="addReading classy green mini" type="button">
+							<span class="button-span button-span-green">Add</span>
+						</button>
+					</div>
 				</div>
-				<div class="data">
-					<?php echo $form->textArea($element, 'right_comments', array('class' => 'autosize', 'rows' => 1, 'cols' => 62, 'nowrapper'=>true)) ?>
-				</div>
+				<?php echo $form->textArea($element, 'right_comments', array('class' => 'autosize', 'rows' => 1, 'cols' => 62)) ?>
 			</div>
 			<div class="inactiveForm">
 				<a href="#">Add right side</a>
@@ -88,49 +87,48 @@
 			data-side="left">
 			<div class="activeForm">
 				<a href="#" class="removeSide">-</a>
-				<div class="data">
-					<label for="Element_OphCiPhasing_IntraocularPressure_left_instrument_id">Instrument:</label>
-					<?php echo CHtml::dropDownList('Element_OphCiPhasing_IntraocularPressure[left_instrument_id]', $element->left_instrument_id, $instruments); ?>
-				</div>
-				<div class="data">
-					<table>
-						<thead>
-							<tr>
-								<th>Time (HH:MM)</th>
-								<th>mm Hg</th>
-							</tr>
-						</thead>
-						<tbody>
-							<?php
-								$left_readings = (isset($_POST['intraocularpressure_readings_valid']) ? $element->convertReadings(@$_POST['intraocularpressure_reading'], 'left') : $element->left_readings);
-								if($left_readings) {
-									foreach($left_readings as $index => $reading) {
+				<?php echo $form->dropDownList($element, 'left_instrument_id', $instruments)?>
+				<?php echo $form->radioBoolean($element, 'left_dilated')?>
+				<div class="eventDetail">
+					<div class="label">Readings:</div>
+					<div class="data">
+						<table>
+							<thead>
+								<tr>
+									<th>Time (HH:MM)</th>
+									<th>mm Hg</th>
+								</tr>
+							</thead>
+							<tbody>
+								<?php
+									$left_readings = (isset($_POST['intraocularpressure_readings_valid']) ? $element->convertReadings(@$_POST['intraocularpressure_reading'], 'left') : $element->left_readings);
+									if($left_readings) {
+										foreach($left_readings as $index => $reading) {
+											$this->renderPartial('_form_Element_OphCiPhasing_IntraocularPressure_Reading', array(
+												'key' => $key,
+												'reading' => $reading,
+												'side' => $reading->side,
+												'no_remove' => ($index == 0)
+											));
+											$key++;
+										}
+									} else { 
 										$this->renderPartial('_form_Element_OphCiPhasing_IntraocularPressure_Reading', array(
 											'key' => $key,
-											'reading' => $reading,
-											'side' => $reading->side,
-											'no_remove' => ($index == 0)
+											'side' => 1,
+											'no_remove' => true
 										));
 										$key++;
 									}
-								} else { 
-									$this->renderPartial('_form_Element_OphCiPhasing_IntraocularPressure_Reading', array(
-										'key' => $key,
-										'side' => 1,
-										'no_remove' => true
-									));
-									$key++;
-								}
-							?>
-						</tbody>
-					</table>
-					<button class="addReading classy green mini" type="button">
-						<span class="button-span button-span-green">Add</span>
-					</button>
+								?>
+							</tbody>
+						</table>
+						<button class="addReading classy green mini" type="button">
+							<span class="button-span button-span-green">Add</span>
+						</button>
+					</div>
 				</div>
-				<div class="data">
-					<?php echo $form->textArea($element, 'left_comments', array('class' => 'autosize', 'rows' => 1, 'cols' => 62, 'nowrapper'=>true)) ?>
-				</div>
+				<?php echo $form->textArea($element, 'left_comments', array('class' => 'autosize', 'rows' => 1, 'cols' => 62)) ?>
 			</div>
 			<div class="inactiveForm">
 				<a href="#">Add left side</a>

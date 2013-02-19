@@ -77,6 +77,8 @@ class m130218_153000_initial_migration extends OEMigration {
 		$this->addForeignKey('et_ophciphasing_intraocularpressure_ri_fk', 'et_ophciphasing_intraocularpressure', 'right_instrument_id', 'ophciphasing_instrument', 'id');
 		$this->addColumn('et_ophciphasing_intraocularpressure', 'left_comments', 'text');
 		$this->addColumn('et_ophciphasing_intraocularpressure', 'right_comments', 'text');
+		$this->addColumn('et_ophciphasing_intraocularpressure', 'left_dilated', 'tinyint(1) unsigned');
+		$this->addColumn('et_ophciphasing_intraocularpressure', 'right_dilated', 'tinyint(1) unsigned');
 		
 		$this->createTable('ophciphasing_reading',array(
 				'id' => 'int(10) unsigned NOT NULL AUTO_INCREMENT',

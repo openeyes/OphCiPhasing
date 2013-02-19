@@ -24,5 +24,5 @@
 #event_content .Element_OphCiPhasing_IntraocularPressure .eventDetail { padding-bottom: 0; }
 #event_content .Element_OphCiPhasing_IntraocularPressure .data { display: block; margin-bottom: 10px; }
 #event_content .Element_OphCiPhasing_IntraocularPressure .data input { font-size: 13px; }
-#event_content .Element_OphCiPhasing_IntraocularPressure table { margin-bottom: 5px; }
+#event_content .Element_OphCiPhasing_IntraocularPressure table { margin-bottom: 5px; clear: both; }
 #event_content .Element_OphCiPhasing_IntraocularPressure .readingActions { font-size: 12px; line-height: 19px;}
