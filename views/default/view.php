@@ -25,7 +25,9 @@
 
 <?php
 	// Event actions
-	$this->event_actions[] = EventAction::button('Print', 'print');
+	if($this->canPrint()) {
+		$this->event_actions[] = EventAction::button('Print', 'print');
+	}
 	$this->renderPartial('//patient/event_actions');
 ?>
 
