@@ -106,7 +106,12 @@ $(document).ready(function() {
 		
 		e.preventDefault();
 	});
-	
+
+	handleButton($('#et_print'),function(e) {
+		printIFrameUrl(OE_print_url, null);
+		enableButtons();
+		e.preventDefault();
+	});
 });
 
 function OphCiPhasing_IntraocularPressure_getNextKey() {

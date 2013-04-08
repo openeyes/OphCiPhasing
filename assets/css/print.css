@@ -228,7 +228,7 @@ h3{
 	margin-top: 20px;
 }
 
-#OphCiExamination_print .left { clear: left; float: left; width: 48%; position: relative; }
-#OphCiExamination_print .right { clear: right; float: right; width: 48%; position: relative; }
+#OphCiPhasing_print .left { clear: left; float: left; width: 48%; position: relative; }
+#OphCiPhasing_print .right { clear: right; float: right; width: 48%; position: relative; }
 
 .data { display: inline-block; }
