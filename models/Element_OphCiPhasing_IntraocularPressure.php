@@ -32,27 +32,30 @@
  * @property string $right_comments
  */
 
-class Element_OphCiPhasing_IntraocularPressure extends SplitEventTypeElement {
-
+class Element_OphCiPhasing_IntraocularPressure extends SplitEventTypeElement
+{
 	/**
 	 * Returns the static model of the specified AR class.
 	 * @return the static model class
 	 */
-	public static function model($className = __CLASS__) {
+	public static function model($className = __CLASS__)
+	{
 		return parent::model($className);
 	}
 
 	/**
 	 * @return string the associated database table name
 	 */
-	public function tableName() {
+	public function tableName()
+	{
 		return 'et_ophciphasing_intraocularpressure';
 	}
 
 	/**
 	 * @return array validation rules for model attributes.
 	 */
-	public function rules() {
+	public function rules()
+	{
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
@@ -66,15 +69,17 @@ class Element_OphCiPhasing_IntraocularPressure extends SplitEventTypeElement {
 						right_instrument_id, right_dilated, left_dilated', 'safe', 'on' => 'search'),
 		);
 	}
-	
-	public function sidedFields() {
+
+	public function sidedFields()
+	{
 		return array('comments','instrument_id','dilated');
 	}
-	
+
 	/**
 	 * @return array relational rules.
 	 */
-	public function relations() {
+	public function relations()
+	{
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
@@ -95,7 +100,8 @@ class Element_OphCiPhasing_IntraocularPressure extends SplitEventTypeElement {
 	/**
 	 * @return array customized attribute labels (name=>label)
 	 */
-	public function attributeLabels() {
+	public function attributeLabels()
+	{
 		return array(
 				'id' => 'ID',
 				'event_id' => 'Event',
@@ -108,7 +114,8 @@ class Element_OphCiPhasing_IntraocularPressure extends SplitEventTypeElement {
 		);
 	}
 
-	public function getInstrumentOptions() {
+	public function getInstrumentOptions()
+	{
 		return CHtml::listData(OphCiPhasing_Instrument::model()->findAll(array('order' => 'display_order')), 'id', 'name') ;
 	}
 
@@ -116,7 +123,8 @@ class Element_OphCiPhasing_IntraocularPressure extends SplitEventTypeElement {
 	 * Retrieves a list of models based on the current search/filter conditions.
 	 * @return CActiveDataProvider the data provider that can return the models based on the search/filter conditions.
 	 */
-	public function search() {
+	public function search()
+	{
 		// Warning: Please modify the following code to remove attributes that
 		// should not be searched.
 
@@ -136,12 +144,13 @@ class Element_OphCiPhasing_IntraocularPressure extends SplitEventTypeElement {
 	 * @param array $readings array POSTed array of readings
 	 * @param string $side
 	 */
-	public function convertReadings($readings, $side) {
+	public function convertReadings($readings, $side)
+	{
 		$return = array();
 		$side_id = ($side == 'right') ? 0 : 1;
 		if (is_array($readings)) {
-			foreach($readings as $reading) {
-				if($reading['side'] == $side_id) {
+			foreach ($readings as $reading) {
+				if ($reading['side'] == $side_id) {
 					$reading_model = new OphCiPhasing_Reading();
 					$reading_model->attributes = $reading;
 					$return[] = $reading_model;
@@ -150,8 +159,9 @@ class Element_OphCiPhasing_IntraocularPressure extends SplitEventTypeElement {
 		}
 		return $return;
 	}
-	
-	protected function beforeDelete() {
+
+	protected function beforeDelete()
+	{
 		foreach ($this->readings as $reading) {
 			if (!$reading->delete()) {
 				throw new Exception('Delete reading failed: '.print_r($reading->getErrors(),true));
@@ -159,33 +169,34 @@ class Element_OphCiPhasing_IntraocularPressure extends SplitEventTypeElement {
 		}
 		return parent::beforeDelete();
 	}
-	
+
 	/**
 	 * Save readings
 	 * @todo This probably doesn't belong here, but there doesn't seem to be an easy way
 	 * of doing it through the controller at the moment
 	 */
-	protected function afterSave() {
+	protected function afterSave()
+	{
 		// Check to see if readings have been posted
-		if(isset($_POST['intraocularpressure_readings_valid']) && $_POST['intraocularpressure_readings_valid']) {
+		if (isset($_POST['intraocularpressure_readings_valid']) && $_POST['intraocularpressure_readings_valid']) {
 
 			// Get a list of ids so we can keep track of what's been removed
 			$existing_reading_ids = array();
-			foreach($this->readings as $reading) {
+			foreach ($this->readings as $reading) {
 				$existing_reading_ids[$reading->id] = $reading->id;
 			}
 
 			// Process (any) posted readings
 			$new_readings = (isset($_POST['intraocularpressure_reading'])) ? $_POST['intraocularpressure_reading'] : array();
-			foreach($new_readings as $reading) {
-				
+			foreach ($new_readings as $reading) {
+
 				// Check to see if side is inactive
-				if($reading['side'] == 0 && $this->eye_id == 1
+				if ($reading['side'] == 0 && $this->eye_id == 1
 						|| $reading['side'] == 1 && $this->eye_id == 2) {
 					continue;
 				}
-				
-				if(isset($reading['id']) && isset($existing_reading_ids[$reading['id']])) {
+
+				if (isset($reading['id']) && isset($existing_reading_ids[$reading['id']])) {
 
 					// Reading is being updated
 					$reading_model = OphCiPhasing_Reading::model()->findByPk($reading['id']);
@@ -214,51 +225,52 @@ class Element_OphCiPhasing_IntraocularPressure extends SplitEventTypeElement {
 
 		return parent::afterSave();
 	}
-	
+
 	/**
 	 * Validate readings
 	 * @todo This probably doesn't belong here, but there doesn't seem to be an easy way
 	 * of doing it through the controller at the moment
 	 */
-	protected function beforeValidate() {
-		if(isset($_POST['intraocularpressure_readings_valid']) && $_POST['intraocularpressure_readings_valid']) {
-	
+	protected function beforeValidate()
+	{
+		if (isset($_POST['intraocularpressure_readings_valid']) && $_POST['intraocularpressure_readings_valid']) {
+
 			// Empty side not allowed
-			if(!isset($_POST['intraocularpressure_reading']) || !$_POST['intraocularpressure_reading']) {
+			if (!isset($_POST['intraocularpressure_reading']) || !$_POST['intraocularpressure_reading']) {
 				$this->addError(null,'At least one reading is required');
 			} else {
-				foreach(array('Left' => 0, 'Right' => 1) as $not_side => $side_id) {
-					if($this->eye->name != $not_side) {
+				foreach (array('Left' => 0, 'Right' => 1) as $not_side => $side_id) {
+					if ($this->eye->name != $not_side) {
 						$has_reading = false;
-						foreach($_POST['intraocularpressure_reading'] as $reading) {
-							if($reading['side'] == $side_id) {
+						foreach ($_POST['intraocularpressure_reading'] as $reading) {
+							if ($reading['side'] == $side_id) {
 								$has_reading = true;
 							}
 						}
-						if(!$has_reading) {
+						if (!$has_reading) {
 							$this->addError(null,'At least one reading is required');
 							return parent::beforeValidate();
 						}
 					}
 				}
-				
+
 				// Check that readings validate
-				foreach($_POST['intraocularpressure_reading'] as $key => $item) {
-					if(($item['side'] == 0 && $this->eye->name != 'Left') || ($item['side'] == 1 && $this->eye->name != 'Right')) {
+				foreach ($_POST['intraocularpressure_reading'] as $key => $item) {
+					if (($item['side'] == 0 && $this->eye->name != 'Left') || ($item['side'] == 1 && $this->eye->name != 'Right')) {
 						$item_model = new OphCiPhasing_Reading();
 						$item_model->measurement_timestamp = $item['measurement_timestamp'];
 						$item_model->side = $item['side'];
 						$item_model->value = $item['value'];
 						$validate_attributes = array_keys($item_model->getAttributes(false));
-						if(!$item_model->validate($validate_attributes)) {
+						if (!$item_model->validate($validate_attributes)) {
 							$this->addErrors($item_model->getErrors());
 						}
 					}
 				}
 			}
-	
+
 		}
 		return parent::beforeValidate();
 	}
-	
+
 }

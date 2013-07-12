@@ -17,9 +17,9 @@
  * @license http://www.gnu.org/licenses/gpl-3.0.html The GNU General Public License V3.0
  */
 ?>
-<?php 
+<?php
 $this->renderPartial(
 	'_form_' . $element->create_view,
 	array('element' => $element, 'data' => $data, 'form' => $form)
-); 
+);
 ?>

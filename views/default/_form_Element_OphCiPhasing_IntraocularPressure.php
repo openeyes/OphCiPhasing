@@ -31,7 +31,7 @@
 		<input type="hidden" name="intraocularpressure_readings_valid" value="1" />
 		<?php echo $form->hiddenInput($element, 'eye_id', false, array('class' => 'sideField')); ?>
 		<div
-			class="side left eventDetail<?php if(!$element->hasRight()) { ?> inactive<?php } ?>"
+			class="side left eventDetail<?php if (!$element->hasRight()) { ?> inactive<?php } ?>"
 			data-side="right">
 			<div class="activeForm">
 				<a href="#" class="removeSide">-</a>
@@ -50,8 +50,8 @@
 							<tbody>
 								<?php
 								$right_readings = (isset($_POST['intraocularpressure_readings_valid']) ? $element->convertReadings(@$_POST['intraocularpressure_reading'], 'right') : $element->right_readings);
-									if($right_readings) {
-										foreach($right_readings as $index => $reading) { 
+									if ($right_readings) {
+										foreach ($right_readings as $index => $reading) {
 											$this->renderPartial('_form_Element_OphCiPhasing_IntraocularPressure_Reading', array(
 												'key' => $key,
 												'reading' => $reading,
@@ -60,7 +60,7 @@
 											));
 											$key++;
 										}
-									} else { 
+									} else {
 										$this->renderPartial('_form_Element_OphCiPhasing_IntraocularPressure_Reading', array(
 											'key' => $key,
 											'side' => 0,
@@ -83,7 +83,7 @@
 			</div>
 		</div>
 		<div
-			class="side right eventDetail<?php if(!$element->hasLeft()) { ?> inactive<?php } ?>"
+			class="side right eventDetail<?php if (!$element->hasLeft()) { ?> inactive<?php } ?>"
 			data-side="left">
 			<div class="activeForm">
 				<a href="#" class="removeSide">-</a>
@@ -102,8 +102,8 @@
 							<tbody>
 								<?php
 									$left_readings = (isset($_POST['intraocularpressure_readings_valid']) ? $element->convertReadings(@$_POST['intraocularpressure_reading'], 'left') : $element->left_readings);
-									if($left_readings) {
-										foreach($left_readings as $index => $reading) {
+									if ($left_readings) {
+										foreach ($left_readings as $index => $reading) {
 											$this->renderPartial('_form_Element_OphCiPhasing_IntraocularPressure_Reading', array(
 												'key' => $key,
 												'reading' => $reading,
@@ -112,7 +112,7 @@
 											));
 											$key++;
 										}
-									} else { 
+									} else {
 										$this->renderPartial('_form_Element_OphCiPhasing_IntraocularPressure_Reading', array(
 											'key' => $key,
 											'side' => 1,
