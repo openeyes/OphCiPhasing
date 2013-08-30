@@ -24,11 +24,10 @@
 	data-element-type-class="<?php echo $element->elementType->class_name ?>"
 	data-element-type-name="<?php echo $element->elementType->name ?>"
 	data-element-display-order="<?php echo $element->elementType->display_order ?>">
-	<?php 
+	<?php
 	$this->renderPartial(
 		'_view_' . $element->view_view,
 		array('element' => $element, 'data' => $data, 'form' => $form)
-	); 
+	);
 	?>
 </div>
-	

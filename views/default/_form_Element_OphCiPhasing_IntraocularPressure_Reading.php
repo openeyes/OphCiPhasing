@@ -19,7 +19,7 @@
 ?>
 <tr class="intraocularPressureReading" data-key="<?php echo $key ?>">
 	<td>
-	<?php if(isset($reading) && $reading->id) { ?>
+	<?php if (isset($reading) && $reading->id) { ?>
 	<input type="hidden"
 		name="intraocularpressure_reading[<?php echo $key ?>][id]"
 		value="<?php echo $reading->id?>" />
@@ -32,7 +32,7 @@
 	<td>
 	<?php echo CHtml::textField('intraocularpressure_reading['.$key.'][value]', @$reading->value); ?>
 	</td>
-	<?php if(!isset($no_remove) || !$no_remove) { ?>
+	<?php if (!isset($no_remove) || !$no_remove) { ?>
 	<td class="readingActions"><a class="removeReading" href="#">Remove</a></td>
 	<?php } ?>
 </tr>

@@ -17,14 +17,14 @@
  * @license http://www.gnu.org/licenses/gpl-3.0.html The GNU General Public License V3.0
  */
 ?>
-<?php if($element->{'has'.$side}()) { ?>
+<?php if ($element->{'has'.$side}()) { ?>
 <div class="data">
-	<?php echo $element->{strtolower($side).'_instrument'}->name ?> <?php if($element->{strtolower($side).'_dilated'}) { ?>(dilated)<?php } ?>
+	<?php echo $element->{strtolower($side).'_instrument'}->name ?> <?php if ($element->{strtolower($side).'_dilated'}) { ?>(dilated)<?php } ?>
 </div>
 <div class="data">
 	<table>
 		<tbody>
-			<?php foreach($element->{strtolower($side).'_readings'} as $reading) { ?>
+			<?php foreach ($element->{strtolower($side).'_readings'} as $reading) { ?>
 			<tr>
 				<td><?php echo date('g:ia',strtotime($reading->measurement_timestamp)) ?> - </td>
 				<td><?php echo $reading->value ?> mm Hg</td>
@@ -33,7 +33,7 @@
 		</tbody>
 	</table>
 </div>
-<?php if($element->{strtolower($side).'_comments'}) { ?>
+<?php if ($element->{strtolower($side).'_comments'}) { ?>
 <div class="data">
 	(<?php echo $element->{strtolower($side).'_comments'} ?>)
 </div>

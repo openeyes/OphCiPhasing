@@ -59,12 +59,12 @@
 					<div class="left">
 						<?php if ($element->hasRight()) {?>
 							<div class="data">
-								<?php echo $element->right_instrument->name ?> <?php if($element->right_dilated) {?>(dilated)<?php }?>
+								<?php echo $element->right_instrument->name ?> <?php if ($element->right_dilated) {?>(dilated)<?php }?>
 							</div>
 							<div class="data">
 								<table>
 									<tbody>
-										<?php foreach($element->right_readings as $reading) { ?>
+										<?php foreach ($element->right_readings as $reading) { ?>
 											<tr>
 												<td><?php echo date('g:ia',strtotime($reading->measurement_timestamp)) ?> - </td>
 												<td><?php echo $reading->value ?> mm Hg</td>
@@ -78,7 +78,7 @@
 									(<?php echo $element->right_comments?>)
 								</div>
 							<?php }?>
-						<?php }else{?>
+						<?php } else {?>
 							Not recorded
 						<?php }?>
 					</div>
@@ -90,7 +90,7 @@
 							<div class="data">
 								<table>
 									<tbody>
-										<?php foreach($element->left_readings as $reading) { ?>
+										<?php foreach ($element->left_readings as $reading) { ?>
 											<tr>
 												<td><?php echo date('g:ia',strtotime($reading->measurement_timestamp)) ?> - </td>
 												<td><?php echo $reading->value ?> mm Hg</td>
@@ -104,7 +104,7 @@
 									(<?php echo $element->left_comments?>)
 								</div>
 							<?php }?>
-						<?php }else{?>
+						<?php } else {?>
 							Not recorded
 						<?php }?>
 					</div>
