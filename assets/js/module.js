@@ -69,41 +69,41 @@ $(document).ready(function() {
 	});
 
 	$(this).delegate('#event_content .side .activeForm a.removeSide', 'click', function(e) {
-		
+
 		// Update side field to indicate other side
 		var side = $(this).closest('.side');
-		
+
 		var remove_physical_side = 'left';
 		var show_physical_side = 'right';
-		
+
 		var eye_side = 1;
 		if(side.attr('data-side') == 'left') {
 			eye_side = 2; // Right
 			remove_physical_side = 'right';
 			show_physical_side = 'left';
-		} 
-		
+		}
+
 		$(this).closest('.element').find('input.sideField').each(function() {
 			$(this).val(eye_side);
 		});
-		
+
 		// If other side is already inactive, then activate it (can't have both sides inactive)
 		$(this).closest('.element').find('.side.'+show_physical_side).removeClass('inactive');
-		
+
 		// Make this side inactive
 		$(this).closest('.element').find('.side.'+remove_physical_side).addClass('inactive');
-		
+
 		e.preventDefault();
 	});
 
 	$(this).delegate('#event_content .side .inactiveForm a', 'click', function(e) {
-		var element = $(this).closest('.element'); 
+		var element = $(this).closest('.element');
 		element.find('input.sideField').each(function() {
 			$(this).val(3); // Both eyes
 		});
-		
+
 		element.find('.side').removeClass('inactive');
-		
+
 		e.preventDefault();
 	});
 
@@ -128,6 +128,6 @@ function OphCiPhasing_IntraocularPressure_addReading(side) {
 		"side" : (side == 'right' ? 0 : 1),
 	};
 	var form = Mustache.render(template, data);
-	var table = $('#event_content .Element_OphCiPhasing_IntraocularPressure .[data-side="' + side + '"] table');
+	var table = $('#Element_OphCiPhasing_IntraocularPressure_' + side + '_readings table');
 	$('tbody', table).append(form);
 }

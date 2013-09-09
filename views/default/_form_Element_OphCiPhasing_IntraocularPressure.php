@@ -37,7 +37,7 @@
 				<a href="#" class="removeSide">-</a>
 				<?php echo $form->dropDownList($element, 'right_instrument_id', $instruments)?>
 				<?php echo $form->radioBoolean($element, 'right_dilated')?>
-				<div class="eventDetail">
+				<div class="eventDetail" id="<?php echo get_class($element); ?>_right_readings">
 					<div class="label">Readings:</div>
 					<div class="data">
 						<table>
@@ -89,7 +89,7 @@
 				<a href="#" class="removeSide">-</a>
 				<?php echo $form->dropDownList($element, 'left_instrument_id', $instruments)?>
 				<?php echo $form->radioBoolean($element, 'left_dilated')?>
-				<div class="eventDetail">
+				<div class="eventDetail" id="<?php echo get_class($element); ?>_left_readings">
 					<div class="label">Readings:</div>
 					<div class="data">
 						<table>
