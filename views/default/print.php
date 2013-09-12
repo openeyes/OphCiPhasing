@@ -25,7 +25,7 @@
 		</div>
 		<div class="headerInfo">
 			<div class="patientDetails">
-				<strong><?php echo $this->patient->addressname?></strong>
+				<strong><?php echo $this->patient->getCorrespondenceName() ?></strong>
 				<br />
 				<?php echo ($this->patient->contact && $this->patient->contact->address) ? $this->patient->contact->address->getLetterHtml() : ''; ?>
 				<br>
