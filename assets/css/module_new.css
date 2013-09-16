@@ -18,11 +18,11 @@
  */
 /* line 2, ../sass/components/_event.scss */
 .event.phasing {
-  border-color: #86cdff;
+  border-color: #fdcc56;
 }
 /* line 4, ../sass/components/_event.scss */
 .event.phasing .event-content {
-  background-image: url('../img/new/watermark.png?1379321673');
+  background-image: url('../img/new/watermark.png?1379323094');
 }
 /* line 7, ../sass/components/_event.scss */
 .event.phasing .event-title {
