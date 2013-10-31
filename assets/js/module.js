@@ -67,7 +67,7 @@ $(document).ready(function() {
 		e.preventDefault();
 	});
 
-	$(this).delegate('#event-content .side .active-form a.removeSide', 'click', function(e) {
+	$(this).delegate('#event-content .side .active-form .remove-side', 'click', function(e) {
 
 		// Update side field to indicate other side
 		var side = $(this).closest('.side');
