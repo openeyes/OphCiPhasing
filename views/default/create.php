@@ -1,4 +1,3 @@
-<?php /* DEPRECATED */ ?>
 <?php
 /**
  * OpenEyes
@@ -17,34 +16,29 @@
  * @copyright Copyright (c) 2011-2013, OpenEyes Foundation
  * @license http://www.gnu.org/licenses/gpl-3.0.html The GNU General Public License V3.0
  */
-?>
-<?php $this->header() ?>
 
-<h3 class="withEventIcon">
-	<?php echo $this->event_type->name ?>
-</h3>
-
-<div id="event_<?php echo $this->module->name?>">
+$this->beginContent('//patient/event_container'); ?>
 	<?php
-		$form = $this->beginWidget('BaseEventTypeCActiveForm', array(
-				'id' => 'clinical-create',
-				'enableAjaxValidation' => false,
-				'htmlOptions' => array('class' => 'sliding'),
-		));
-
-		// Event actions
-		$this->event_actions[] = EventAction::button('Save', 'save', array('colour' => 'green'));
-		$this->renderPartial('//patient/event_actions');
+		$this->event_actions[] = EventAction::button('Save', 'save', array('level' => 'secondary'), array('class'=>'button small', 'form'=>'clinical-create'));
 	?>
 
-	<?php $this->displayErrors($errors)?>
+	<h2 class="event-title"><?php echo $this->event_type->name ?></h2>
 
-	<div id="elements">
-		<?php $this->renderDefaultElements($this->action->id, $form); ?>
-	</div>
+	<?php $this->renderPartial('//base/_messages'); ?>
 
-	<div class="cleartall"></div>
-	<?php $this->endWidget(); ?>
-</div>
+	<?php $form = $this->beginWidget('BaseEventTypeCActiveForm', array(
+		'id'=>'clinical-create',
+		'enableAjaxValidation'=>false,
+		'layoutColumns' => array(
+			'label' => 4,
+			'field' => 8
+		)
+	));
+	?>
+		<?php $this->displayErrors($errors)?>
+		<?php $this->renderDefaultElements($this->action->id, $form)?>
+		<?php $this->renderOptionalElements($this->action->id, $form)?>
+		<?php $this->displayErrors($errors, true)?>
 
-<?php $this->footer() ?>
+	<?php $this->endWidget()?>
+<?php $this->endContent() ;?>

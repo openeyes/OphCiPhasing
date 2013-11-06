@@ -1,4 +1,3 @@
-<?php /* DEPRECATED */ ?>
 <?php
 /**
  * OpenEyes
@@ -17,25 +16,19 @@
  * @copyright Copyright (c) 2011-2013, OpenEyes Foundation
  * @license http://www.gnu.org/licenses/gpl-3.0.html The GNU General Public License V3.0
  */
-?>
-<?php $this->header() ?>
 
-<h3 class="withEventIcon">
-	<?php echo $this->event_type->name ?>
-</h3>
-
-<?php
-	// Event actions
-	if ($this->canPrint()) {
-		$this->event_actions[] = EventAction::button('Print', 'print');
-	}
-	$this->renderPartial('//patient/event_actions');
+$this->beginContent('//patient/event_container');
 ?>
 
-<div id="event_<?php echo $this->module->name?>">
-	<div id="elements" class="view">
-		<?php $this->renderDefaultElements('view'); ?>
-	</div>
-</div>
+	<?php
+		// Event actions
+		if ($this->canPrint()) {
+			$this->event_actions[] = EventAction::button('Print', 'print',null,array('class'=>'button small'));}
+	?>
 
-<?php $this->footer() ?>
+	<h2 class="event-title"><?php echo $this->event_type->name?></h2>
+
+	<?php $this->renderDefaultElements($this->action->id)?>
+	<?php $this->renderOptionalElements($this->action->id)?>
+
+<?php $this->endContent() ;?>

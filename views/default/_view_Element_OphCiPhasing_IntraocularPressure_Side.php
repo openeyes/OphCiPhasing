@@ -1,4 +1,3 @@
-<?php /* DEPRECATED */ ?>
 <?php
 /**
  * OpenEyes
@@ -18,29 +17,31 @@
  * @license http://www.gnu.org/licenses/gpl-3.0.html The GNU General Public License V3.0
  */
 ?>
-<?php if ($element->{'has'.$side}()) { ?>
-<div class="data">
-	<?php echo $element->{strtolower($side).'_instrument'}->name ?> <?php if ($element->{strtolower($side).'_dilated'}) { ?>(dilated)<?php } ?>
-</div>
-<div class="data">
-	<table>
-		<tbody>
-			<?php foreach ($element->{strtolower($side).'_readings'} as $reading) { ?>
-			<tr>
-				<td><?php echo date('g:ia',strtotime($reading->measurement_timestamp)) ?> - </td>
-				<td><?php echo $reading->value ?> mm Hg</td>
-			</tr>
-			<?php } ?>
-		</tbody>
-	</table>
-</div>
-<?php if ($element->{strtolower($side).'_comments'}) { ?>
-<div class="data">
-	(<?php echo $element->{strtolower($side).'_comments'} ?>)
-</div>
-<?php } ?>
-<?php } else { ?>
-<div class="data">
-	Not recorded
-</div>
-<?php } ?>
+<?php if ($element->{'has'.$side}()) {?>
+	<div class="data-row">
+		<div class="field-value">
+			<?php echo $element->{strtolower($side).'_instrument'}->name ?> <?php if ($element->{strtolower($side).'_dilated'}) { ?>(dilated)<?php } ?>
+		</div>
+	</div>
+	<div class="data-row">
+		<table class="blank">
+			<tbody>
+				<?php foreach ($element->{strtolower($side).'_readings'} as $reading) {?>
+				<tr>
+					<td><?php echo date('g:ia',strtotime($reading->measurement_timestamp))?> - </td>
+					<td><?php echo $reading->value ?> mm Hg</td>
+				</tr>
+				<?php }?>
+			</tbody>
+		</table>
+	</div>
+	<?php if ($element->{strtolower($side).'_comments'}) {?>
+		<div class="data-row">
+			<div class="field-value">
+				(<?php echo $element->{strtolower($side).'_comments'} ?>)
+			</div>
+		</div>
+	<?php }?>
+<?php }else{?>
+	<div class="data-value">Not recorded</div>
+<?php }?>
