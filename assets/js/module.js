@@ -56,19 +56,18 @@ $(document).ready(function() {
 		e.preventDefault();
 	});
 
-	$(this).delegate('#event_content .Element_OphCiPhasing_IntraocularPressure .removeReading', 'click', function(e) {
-		var block = $(this).closest('.data');
+	$(this).delegate('.removeReading', 'click', function(e) {
 		$(this).closest('tr').remove();
 		e.preventDefault();
 	});
 
-	$(this).delegate('#event_content .Element_OphCiPhasing_IntraocularPressure .addReading', 'click', function(e) {
-		var side = $(this).closest('.side').attr('data-side');
+	$(this).delegate('.addReading', 'click', function(e) {
+		var side = $(this).closest('.element-eye').attr('data-side');
 		OphCiPhasing_IntraocularPressure_addReading(side);
 		e.preventDefault();
 	});
 
-	$(this).delegate('#event_content .side .activeForm a.removeSide', 'click', function(e) {
+	$(this).delegate('#event-content .side .active-form .remove-side', 'click', function(e) {
 
 		// Update side field to indicate other side
 		var side = $(this).closest('.side');
@@ -96,7 +95,7 @@ $(document).ready(function() {
 		e.preventDefault();
 	});
 
-	$(this).delegate('#event_content .side .inactiveForm a', 'click', function(e) {
+	$(this).delegate('#event-content .side .inactive-form a', 'click', function(e) {
 		var element = $(this).closest('.element');
 		element.find('input.sideField').each(function() {
 			$(this).val(3); // Both eyes
@@ -115,7 +114,7 @@ $(document).ready(function() {
 });
 
 function OphCiPhasing_IntraocularPressure_getNextKey() {
-	var keys = $('#event_content .Element_OphCiPhasing_IntraocularPressure .intraocularPressureReading').map(function(index, el) {
+	var keys = $('#event-content .Element_OphCiPhasing_IntraocularPressure .intraocularPressureReading').map(function(index, el) {
 		return parseInt($(el).attr('data-key'));
 	}).get();
 	return Math.max.apply(null, keys) + 1;
@@ -128,6 +127,5 @@ function OphCiPhasing_IntraocularPressure_addReading(side) {
 		"side" : (side == 'right' ? 0 : 1),
 	};
 	var form = Mustache.render(template, data);
-	var table = $('#Element_OphCiPhasing_IntraocularPressure_' + side + '_readings table');
-	$('tbody', table).append(form);
+	$('.readings-'+side).append(form);
 }

@@ -16,38 +16,33 @@
  * @copyright Copyright (c) 2011-2013, OpenEyes Foundation
  * @license http://www.gnu.org/licenses/gpl-3.0.html The GNU General Public License V3.0
  */
-?>
 
-<div class="element <?php echo $element->elementType->class_name ?>"
-	data-element-type-id="<?php echo $element->elementType->id ?>"
-	data-element-type-class="<?php echo $element->elementType->class_name ?>"
-	data-element-type-name="<?php echo $element->elementType->name ?>"
-	data-element-display-order="<?php echo $element->elementType->display_order ?>">
-	<?php
-	$instruments = $element->getInstrumentOptions();
-	$key = 0;
-	?>
-	<div class="cols2 clearfix">
+$instruments = $element->getInstrumentOptions();
+$key = 0;
+?>
+<section class="element">
+	<div class="element-fields element-eyes row">
 		<input type="hidden" name="intraocularpressure_readings_valid" value="1" />
 		<?php echo $form->hiddenInput($element, 'eye_id', false, array('class' => 'sideField')); ?>
-		<div
-			class="side left eventDetail<?php if (!$element->hasRight()) { ?> inactive<?php } ?>"
-			data-side="right">
-			<div class="activeForm">
-				<a href="#" class="removeSide">-</a>
-				<?php echo $form->dropDownList($element, 'right_instrument_id', $instruments)?>
-				<?php echo $form->radioBoolean($element, 'right_dilated')?>
-				<div class="eventDetail" id="<?php echo get_class($element); ?>_right_readings">
-					<div class="label">Readings:</div>
-					<div class="data">
-						<table>
+		<div class="element-eye right-eye column side left<?php if (!$element->hasRight()) { ?> inactive<?php } ?>" data-side="right">
+			<div class="active-form">
+				<a href="#" class="icon-remove-side remove-side">Remove side</a>
+				<?php echo $form->dropDownList($element, 'right_instrument_id', $instruments, array(), false, array('label' => 2, 'field' => 10))?>
+				<?php echo $form->radioBoolean($element, 'right_dilated', array(), array('label' => 2, 'field' => 10))?>
+				<fieldset class="row field-row">
+					<legend class="large-2 column">
+						Readings:
+					</legend>
+					<div class="large-10 column">
+						<table class="blank">
 							<thead>
 								<tr>
 									<th>Time (HH:MM)</th>
 									<th>mm Hg</th>
+									<th><div class="hide-offscreen">Actions</div></th>
 								</tr>
 							</thead>
-							<tbody>
+							<tbody class="readings-right">
 								<?php
 								$right_readings = (isset($_POST['intraocularpressure_readings_valid']) ? $element->convertReadings(@$_POST['intraocularpressure_reading'], 'right') : $element->right_readings);
 									if ($right_readings) {
@@ -70,38 +65,45 @@
 									}
 								?>
 							</tbody>
+							<tfoot>
+								<tr>
+									<td colspan="3"><button class="secondary small addReading">Add</button></td>
+								</tr>
+							</tfoot>
 						</table>
-						<button class="addReading classy green mini" type="button">
-							<span class="button-span button-span-green">Add</span>
-						</button>
 					</div>
-				</div>
-				<?php echo $form->textArea($element, 'right_comments', array('class' => 'autosize', 'rows' => 1, 'cols' => 62)) ?>
+				</fieldset>
+				<?php echo $form->textArea($element, 'right_comments', array(), false, array('class' => 'autosize', 'placeholder' => 'Enter comments ...'), array('label' => 2, 'field' => 10))?>
 			</div>
-			<div class="inactiveForm">
-				<a href="#">Add right side</a>
+			<div class="inactive-form">
+				<div class="add-side">
+					<a href="#">
+						Add right side <span class="icon-add-side"></span>
+					</a>
+				</div>
 			</div>
 		</div>
-		<div
-			class="side right eventDetail<?php if (!$element->hasLeft()) { ?> inactive<?php } ?>"
-			data-side="left">
-			<div class="activeForm">
-				<a href="#" class="removeSide">-</a>
-				<?php echo $form->dropDownList($element, 'left_instrument_id', $instruments)?>
-				<?php echo $form->radioBoolean($element, 'left_dilated')?>
-				<div class="eventDetail" id="<?php echo get_class($element); ?>_left_readings">
-					<div class="label">Readings:</div>
-					<div class="data">
-						<table>
+		<div class="element-eye left-eye column side right<?php if (!$element->hasLeft()) { ?> inactive<?php } ?>" data-side="left">
+			<div class="active-form">
+				<a href="#" class="icon-remove-side remove-side">Remove side</a>
+				<?php echo $form->dropDownList($element, 'left_instrument_id', $instruments, array(), false, array('label' => 2, 'field' => 10))?>
+				<?php echo $form->radioBoolean($element, 'left_dilated', array(), array('label' => 2, 'field' => 10))?>
+				<fieldset class="row field-row">
+					<legend class="large-2 column">
+						Readings:
+					</legend>
+					<div class="large-10 column">
+						<table class="blank">
 							<thead>
 								<tr>
 									<th>Time (HH:MM)</th>
 									<th>mm Hg</th>
+									<th><div class="hide-offscreen">Actions</div></th>
 								</tr>
 							</thead>
-							<tbody>
+							<tbody class="readings-left">
 								<?php
-									$left_readings = (isset($_POST['intraocularpressure_readings_valid']) ? $element->convertReadings(@$_POST['intraocularpressure_reading'], 'left') : $element->left_readings);
+								$left_readings = (isset($_POST['intraocularpressure_readings_valid']) ? $element->convertReadings(@$_POST['intraocularpressure_reading'], 'left') : $element->left_readings);
 									if ($left_readings) {
 										foreach ($left_readings as $index => $reading) {
 											$this->renderPartial('_form_Element_OphCiPhasing_IntraocularPressure_Reading', array(
@@ -122,20 +124,26 @@
 									}
 								?>
 							</tbody>
+							<tfoot>
+								<tr>
+									<td colspan="3"><button class="secondary small addReading">Add</button></td>
+								</tr>
+							</tfoot>
 						</table>
-						<button class="addReading classy green mini" type="button">
-							<span class="button-span button-span-green">Add</span>
-						</button>
 					</div>
-				</div>
-				<?php echo $form->textArea($element, 'left_comments', array('class' => 'autosize', 'rows' => 1, 'cols' => 62)) ?>
+				</fieldset>
+				<?php echo $form->textArea($element, 'left_comments', array(), false, array('class' => 'autosize', 'placeholder' => 'Enter comments ...'), array('label' => 2, 'field' => 10))?>
 			</div>
-			<div class="inactiveForm">
-				<a href="#">Add left side</a>
+			<div class="inactive-form">
+				<div class="add-side">
+					<a href="#">
+						Add left side <span class="icon-add-side"></span>
+					</a>
+				</div>
 			</div>
 		</div>
 	</div>
-</div>
+</section>
 <script id="intraocularpressure_reading_template" type="text/html">
 	<?php
 	$this->renderPartial('_form_Element_OphCiPhasing_IntraocularPressure_Reading', array(

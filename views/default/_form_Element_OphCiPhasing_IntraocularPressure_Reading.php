@@ -17,22 +17,20 @@
  * @license http://www.gnu.org/licenses/gpl-3.0.html The GNU General Public License V3.0
  */
 ?>
-<tr class="intraocularPressureReading" data-key="<?php echo $key ?>">
+<tr>
 	<td>
-	<?php if (isset($reading) && $reading->id) { ?>
-	<input type="hidden"
-		name="intraocularpressure_reading[<?php echo $key ?>][id]"
-		value="<?php echo $reading->id?>" />
-	<?php } ?>
-	<input type="hidden"
-		name="intraocularpressure_reading[<?php echo $key ?>][side]"
-		value="<?php echo $side ?>" />
-	<?php echo CHtml::textField('intraocularpressure_reading['.$key.'][measurement_timestamp]', isset($reading) ? date('H:i',strtotime($reading->measurement_timestamp)) : date('H:i')) ?>
+		<?php if (isset($reading) && $reading->id) { ?>
+		<input type="hidden" name="intraocularpressure_reading[<?php echo $key ?>][id]" value="<?php echo $reading->id?>" />
+		<?php } ?>
+		<input type="hidden" name="intraocularpressure_reading[<?php echo $key ?>][side]" value="<?php echo $side ?>" />
+		<?php echo CHtml::textField('intraocularpressure_reading['.$key.'][measurement_timestamp]', isset($reading) ? date('H:i',strtotime($reading->measurement_timestamp)) : date('H:i'),array('class'=>'small'))?>
 	</td>
 	<td>
-	<?php echo CHtml::textField('intraocularpressure_reading['.$key.'][value]', @$reading->value); ?>
+		<?php echo CHtml::textField('intraocularpressure_reading['.$key.'][value]', @$reading->value,array('class'=>'small'))?>
 	</td>
-	<?php if (!isset($no_remove) || !$no_remove) { ?>
-	<td class="readingActions"><a class="removeReading" href="#">Remove</a></td>
-	<?php } ?>
+	<td class="readingActions">
+		<?php if (!isset($no_remove) || !$no_remove) {?>
+			<a class="removeReading" href="#">Remove</a>
+		<?php }?>
+	</td>
 </tr>
