@@ -29,6 +29,19 @@ class m130913_000006_consolidation_for_ophciphasing extends OEMigration
 
 	public function up()
 	{
+		if (!$this->consolidate(
+			array(
+				"m130218_153000_initial_migration",
+				"m130321_143218_dilated_default_to_no",
+			)
+		)
+		) {
+			$this->createTables();
+		}
+	}
+
+	public function createTables()
+	{
 		$this->setData();
 		//disable foreign keys check
 		$this->execute("SET foreign_key_checks = 0");
