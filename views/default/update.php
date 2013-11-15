@@ -19,7 +19,7 @@
 
 $this->beginContent('//patient/event_container'); ?>
 	<?php
-		$this->event_actions[] = EventAction::button('Save', 'save', array('level' => 'secondary'), array('class'=>'button small', 'form'=>'phasing-create'));
+		$this->event_actions[] = EventAction::button('Save', 'save', array('level' => 'save'), array('form'=>'phasing-create'));
 	?>
 
 	<h2 class="event-title"><?php echo $this->event_type->name ?></h2>
