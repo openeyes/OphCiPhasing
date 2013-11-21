@@ -21,7 +21,7 @@ $(document).ready(function() {
 	/**
 	 * Save event
 	 */
-	$('#event_display').delegate('#et_save', 'click', function(e) {
+	$('#event-content').delegate('#et_save', 'click', function(e) {
 		if (!$(this).hasClass('inactive')) {
 			disableButtons();
 		} else {
@@ -32,7 +32,7 @@ $(document).ready(function() {
 	/**
 	 * Delete event
 	 */
-	$('#event_display').delegate('#et_deleteevent', 'click', function(e) {
+	$('#event-content').delegate('#et_deleteevent', 'click', function(e) {
 		if (!$(this).hasClass('inactive')) {
 			disableButtons();
 			return true;
@@ -44,7 +44,7 @@ $(document).ready(function() {
 	/**
 	 * Cancel event delete
 	 */
-	$('#event_display').delegate('#et_canceldelete', 'click', function(e) {
+	$('#event-content').delegate('#et_canceldelete', 'click', function(e) {
 		if (!$(this).hasClass('inactive')) {
 			disableButtons();
 			if (m = window.location.href.match(/\/delete\/[0-9]+/)) {
