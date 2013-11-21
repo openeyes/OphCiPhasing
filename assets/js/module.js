@@ -21,13 +21,7 @@ $(document).ready(function() {
 	/**
 	 * Save event
 	 */
-	$('#event-content').delegate('#et_save', 'click', function(e) {
-		if (!$(this).hasClass('inactive')) {
-			disableButtons();
-		} else {
-			e.preventDefault();
-		}
-	});
+	handleButton($('#et_save'));
 
 	/**
 	 * Delete event
