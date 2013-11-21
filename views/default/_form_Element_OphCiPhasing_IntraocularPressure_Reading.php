@@ -17,7 +17,7 @@
  * @license http://www.gnu.org/licenses/gpl-3.0.html The GNU General Public License V3.0
  */
 ?>
-<tr>
+<tr class="intraocularPressureReading" data-key="<?php echo $key ?>">
 	<td>
 		<?php if (isset($reading) && $reading->id) { ?>
 		<input type="hidden" name="intraocularpressure_reading[<?php echo $key ?>][id]" value="<?php echo $reading->id?>" />

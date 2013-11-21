@@ -20,7 +20,11 @@
 $instruments = $element->getInstrumentOptions();
 $key = 0;
 ?>
-<section class="element">
+<section class="element <?php echo $element->elementType->class_name ?>"
+	data-element-type-id="<?php echo $element->elementType->id ?>"
+	data-element-type-class="<?php echo $element->elementType->class_name ?>"
+	data-element-type-name="<?php echo $element->elementType->name ?>"
+	data-element-display-order="<?php echo $element->elementType->display_order ?>">
 	<div class="element-fields element-eyes row">
 		<input type="hidden" name="intraocularpressure_readings_valid" value="1" />
 		<?php echo $form->hiddenInput($element, 'eye_id', false, array('class' => 'sideField')); ?>
