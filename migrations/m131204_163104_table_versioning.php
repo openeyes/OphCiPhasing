@@ -121,12 +121,9 @@ CREATE TABLE `ophciphasing_reading_version` (
 	public function down()
 	{
 		$this->dropColumn('ophciphasing_instrument','deleted');
-		$this->dropColumn('ophciphasing_instrument_version','deleted');
 		$this->dropColumn('ophciphasing_reading','deleted');
-		$this->dropColumn('ophciphasing_reading_version','deleted');
 
 		$this->dropColumn('et_ophciphasing_intraocularpressure','deleted');
-		$this->dropColumn('et_ophciphasing_intraocularpressure_version','deleted');
 
 		$this->dropTable('et_ophciphasing_intraocularpressure_version');
 		$this->dropTable('ophciphasing_instrument_version');
