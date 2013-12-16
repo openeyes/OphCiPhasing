@@ -24,7 +24,7 @@
  * @property string $name
  * @property integer $display_order
  */
-class OphCiPhasing_Instrument extends BaseActiveRecord
+class OphCiPhasing_Instrument extends BaseActiveRecordVersioned
 {
 	/**
 	 * Returns the static model of the specified AR class.

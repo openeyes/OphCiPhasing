@@ -27,7 +27,7 @@
  * @property string $measurement_timestamp
 
  */
-class OphCiPhasing_Reading extends BaseActiveRecord
+class OphCiPhasing_Reading extends BaseActiveRecordVersioned
 {
 	/**
 	 * Returns the static model of the specified AR class.
