@@ -61,8 +61,8 @@ class m130913_000006_consolidation_for_ophciphasing extends OEMigration
 			  `eye_id` int(10) unsigned DEFAULT '3',
 			  `left_instrument_id` int(10) unsigned DEFAULT NULL,
 			  `right_instrument_id` int(10) unsigned DEFAULT NULL,
-			  `left_comments` text COLLATE utf8_bin,
-			  `right_comments` text COLLATE utf8_bin,
+			  `left_comments` text,
+			  `right_comments` text,
 			  `left_dilated` tinyint(1) unsigned NOT NULL DEFAULT '0',
 			  `right_dilated` tinyint(1) unsigned NOT NULL DEFAULT '0',
 			  PRIMARY KEY (`id`),
@@ -83,7 +83,7 @@ class m130913_000006_consolidation_for_ophciphasing extends OEMigration
 
 		$this->execute("CREATE TABLE `ophciphasing_instrument` (
 			  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-			  `name` varchar(255) COLLATE utf8_bin NOT NULL,
+			  `name` varchar(255) NOT NULL,
 			  `display_order` int(10) unsigned DEFAULT '1',
 			  `last_modified_user_id` int(10) unsigned NOT NULL DEFAULT '1',
 			  `last_modified_date` datetime NOT NULL DEFAULT '1900-01-01 00:00:00',
