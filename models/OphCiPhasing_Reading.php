@@ -29,6 +29,9 @@
  */
 class OphCiPhasing_Reading extends BaseActiveRecord
 {
+	const RIGHT = 0;
+	const LEFT = 1;
+
 	/**
 	 * Returns the static model of the specified AR class.
 	 * @return OphCiPhasing_Reading the static model class
@@ -52,7 +55,8 @@ class OphCiPhasing_Reading extends BaseActiveRecord
 	public function rules()
 	{
 		return array(
-				array('element_id, side, value, measurement_timestamp', 'required'),
+				array('side, value, measurement_timestamp', 'required'),
+				array('value', 'numerical'),
 				array('id, element_id, side, value, measurement_timestamp', 'safe', 'on'=>'search'),
 		);
 	}
@@ -92,5 +96,18 @@ class OphCiPhasing_Reading extends BaseActiveRecord
 		return new CActiveDataProvider(get_class($this), array(
 				'criteria'=>$criteria,
 		));
+	}
+
+	/**
+	 * check the time entry is valid
+	 *
+	 * @return bool
+	 */
+	public function beforeValidate()
+	{
+		if (!preg_match("/^(([01]?[0-9])|(2[0-3])):?[0-5][0-9]$/", $this->measurement_timestamp)) {
+			$this->addError('measurement_timestamp','Invalid ' . $this->getAttributeLabel('measurement_timestamp'));
+		}
+		return parent::beforeValidate();
 	}
 }

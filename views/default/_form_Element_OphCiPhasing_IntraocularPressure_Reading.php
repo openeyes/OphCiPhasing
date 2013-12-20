@@ -23,7 +23,7 @@
 		<input type="hidden" name="intraocularpressure_reading[<?php echo $key ?>][id]" value="<?php echo $reading->id?>" />
 		<?php } ?>
 		<input type="hidden" name="intraocularpressure_reading[<?php echo $key ?>][side]" value="<?php echo $side ?>" />
-		<?php echo CHtml::textField('intraocularpressure_reading['.$key.'][measurement_timestamp]', isset($reading) ? date('H:i',strtotime($reading->measurement_timestamp)) : date('H:i'),array('class'=>'small'))?>
+		<?php echo CHtml::textField('intraocularpressure_reading['.$key.'][measurement_timestamp]', isset($reading) ? substr($reading->measurement_timestamp,0,5) : date('H:i'),array('class'=>'small'))?>
 	</td>
 	<td>
 		<?php echo CHtml::textField('intraocularpressure_reading['.$key.'][value]', @$reading->value,array('class'=>'small'))?>
