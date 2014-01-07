@@ -22,10 +22,6 @@ $this->beginContent('//patient/event_container'); ?>
 		$this->event_actions[] = EventAction::button('Save', 'save', array('level' => 'save'), array('form'=>'phasing-create'));
 	?>
 
-	<h2 class="event-title"><?php echo $this->event_type->name ?></h2>
-
-	<?php $this->renderPartial('//base/_messages'); ?>
-
 	<?php $form = $this->beginWidget('BaseEventTypeCActiveForm', array(
 		'id'=>'phasing-create',
 		'enableAjaxValidation'=>false,
@@ -36,7 +32,7 @@ $this->beginContent('//patient/event_container'); ?>
 	));
 	?>
 		<?php $this->displayErrors($errors)?>
-		<?php $this->renderDefaultElements($this->action->id, $form)?>
+		<?php $this->renderOpenElements($this->action->id, $form)?>
 		<?php $this->renderOptionalElements($this->action->id, $form)?>
 		<?php $this->displayErrors($errors, true)?>
 
