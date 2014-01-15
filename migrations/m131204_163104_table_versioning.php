@@ -15,8 +15,8 @@ CREATE TABLE `et_ophciphasing_intraocularpressure_version` (
 	`eye_id` int(10) unsigned DEFAULT '3',
 	`left_instrument_id` int(10) unsigned DEFAULT NULL,
 	`right_instrument_id` int(10) unsigned DEFAULT NULL,
-	`left_comments` text COLLATE utf8_bin,
-	`right_comments` text COLLATE utf8_bin,
+	`left_comments` text,
+	`right_comments` text,
 	`left_dilated` tinyint(1) unsigned NOT NULL DEFAULT '0',
 	`right_dilated` tinyint(1) unsigned NOT NULL DEFAULT '0',
 	PRIMARY KEY (`id`),
@@ -32,7 +32,7 @@ CREATE TABLE `et_ophciphasing_intraocularpressure_version` (
 	CONSTRAINT `acv_et_ophciphasing_intraocularpressure_li_fk` FOREIGN KEY (`left_instrument_id`) REFERENCES `ophciphasing_instrument` (`id`),
 	CONSTRAINT `acv_et_ophciphasing_intraocularpressure_l_m_u_id_fk` FOREIGN KEY (`last_modified_user_id`) REFERENCES `user` (`id`),
 	CONSTRAINT `acv_et_ophciphasing_intraocularpressure_ri_fk` FOREIGN KEY (`right_instrument_id`) REFERENCES `ophciphasing_instrument` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci
 		");
 
 		$this->alterColumn('et_ophciphasing_intraocularpressure_version','id','int(10) unsigned NOT NULL');
@@ -50,7 +50,7 @@ CREATE TABLE `et_ophciphasing_intraocularpressure_version` (
 		$this->execute("
 CREATE TABLE `ophciphasing_instrument_version` (
 	`id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-	`name` varchar(255) COLLATE utf8_bin NOT NULL,
+	`name` varchar(255) NOT NULL,
 	`display_order` int(10) unsigned DEFAULT '1',
 	`last_modified_user_id` int(10) unsigned NOT NULL DEFAULT '1',
 	`last_modified_date` datetime NOT NULL DEFAULT '1900-01-01 00:00:00',
@@ -61,7 +61,7 @@ CREATE TABLE `ophciphasing_instrument_version` (
 	KEY `acv_ophciphasing_instrument_created_user_id_fk` (`created_user_id`),
 	CONSTRAINT `acv_ophciphasing_instrument_last_modified_user_id_fk` FOREIGN KEY (`last_modified_user_id`) REFERENCES `user` (`id`),
 	CONSTRAINT `acv_ophciphasing_instrument_created_user_id_fk` FOREIGN KEY (`created_user_id`) REFERENCES `user` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8 COLLATE=utf8_bin
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci
 		");
 
 		$this->alterColumn('ophciphasing_instrument_version','id','int(10) unsigned NOT NULL');
@@ -94,7 +94,7 @@ CREATE TABLE `ophciphasing_reading_version` (
 	CONSTRAINT `acv_ophciphasing_reading_element_id_fk` FOREIGN KEY (`element_id`) REFERENCES `et_ophciphasing_intraocularpressure` (`id`),
 	CONSTRAINT `acv_ophciphasing_reading_created_user_id_fk` FOREIGN KEY (`created_user_id`) REFERENCES `user` (`id`),
 	CONSTRAINT `acv_ophciphasing_reading_last_modified_user_id_fk` FOREIGN KEY (`last_modified_user_id`) REFERENCES `user` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci
 		");
 
 		$this->alterColumn('ophciphasing_reading_version','id','int(10) unsigned NOT NULL');
