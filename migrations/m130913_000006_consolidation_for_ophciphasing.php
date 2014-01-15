@@ -78,7 +78,7 @@ class m130913_000006_consolidation_for_ophciphasing extends OEMigration
 			  CONSTRAINT `et_ophciphasing_intraocularpressure_li_fk` FOREIGN KEY (`left_instrument_id`) REFERENCES `ophciphasing_instrument` (`id`),
 			  CONSTRAINT `et_ophciphasing_intraocularpressure_l_m_u_id_fk` FOREIGN KEY (`last_modified_user_id`) REFERENCES `user` (`id`),
 			  CONSTRAINT `et_ophciphasing_intraocularpressure_ri_fk` FOREIGN KEY (`right_instrument_id`) REFERENCES `ophciphasing_instrument` (`id`)
-			) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin
+			) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci
 		");
 
 		$this->execute("CREATE TABLE `ophciphasing_instrument` (
@@ -94,7 +94,7 @@ class m130913_000006_consolidation_for_ophciphasing extends OEMigration
 			  KEY `ophciphasing_instrument_created_user_id_fk` (`created_user_id`),
 			  CONSTRAINT `ophciphasing_instrument_last_modified_user_id_fk` FOREIGN KEY (`last_modified_user_id`) REFERENCES `user` (`id`),
 			  CONSTRAINT `ophciphasing_instrument_created_user_id_fk` FOREIGN KEY (`created_user_id`) REFERENCES `user` (`id`)
-			) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8 COLLATE=utf8_bin
+			) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci
 		");
 
 		$this->execute("CREATE TABLE `ophciphasing_reading` (
@@ -114,7 +114,7 @@ class m130913_000006_consolidation_for_ophciphasing extends OEMigration
 			  CONSTRAINT `ophciphasing_reading_element_id_fk` FOREIGN KEY (`element_id`) REFERENCES `et_ophciphasing_intraocularpressure` (`id`),
 			  CONSTRAINT `ophciphasing_reading_created_user_id_fk` FOREIGN KEY (`created_user_id`) REFERENCES `user` (`id`),
 			  CONSTRAINT `ophciphasing_reading_last_modified_user_id_fk` FOREIGN KEY (`last_modified_user_id`) REFERENCES `user` (`id`)
-			) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin
+			) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci
 		");
 
 		$migrations_path = dirname(__FILE__);

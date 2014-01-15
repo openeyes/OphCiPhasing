@@ -60,8 +60,8 @@ class Element_OphCiPhasing_IntraocularPressure extends SplitEventTypeElement
 		// will receive user inputs.
 		return array(
 				array('eye_id', 'required'),
-				array('right_instrument_id, right_dilated', 'requiredIfSide', 'side' => 'right'),
-				array('left_instrument_id, left_dilated', 'requiredIfSide', 'side' => 'left'),
+				array('right_instrument_id, right_dilated, right_readings', 'requiredIfSide', 'side' => 'right'),
+				array('left_instrument_id, left_dilated, left_readings', 'requiredIfSide', 'side' => 'left'),
 				array('event_id, left_comments, right_comments', 'safe'),
 				// The following rule is used by search().
 				// Please remove those attributes that should not be searched.
@@ -90,8 +90,8 @@ class Element_OphCiPhasing_IntraocularPressure extends SplitEventTypeElement
 				'user' => array(self::BELONGS_TO, 'User', 'created_user_id'),
 				'usermodified' => array(self::BELONGS_TO, 'User', 'last_modified_user_id'),
 				'readings' => array(self::HAS_MANY, 'OphCiPhasing_Reading', 'element_id'),
-				'right_readings' => array(self::HAS_MANY, 'OphCiPhasing_Reading', 'element_id', 'on' => 'right_readings.side = 0'),
-				'left_readings' => array(self::HAS_MANY, 'OphCiPhasing_Reading', 'element_id', 'on' => 'left_readings.side = 1'),
+				'right_readings' => array(self::HAS_MANY, 'OphCiPhasing_Reading', 'element_id', 'on' => 'right_readings.side = ' . OphCiPhasing_Reading::RIGHT),
+				'left_readings' => array(self::HAS_MANY, 'OphCiPhasing_Reading', 'element_id', 'on' => 'left_readings.side = ' . OphCiPhasing_Reading::LEFT),
 				'right_instrument' => array(self::BELONGS_TO, 'OphCiPhasing_Instrument', 'right_instrument_id'),
 				'left_instrument' => array(self::BELONGS_TO, 'OphCiPhasing_Instrument', 'left_instrument_id'),
 		);
@@ -139,27 +139,11 @@ class Element_OphCiPhasing_IntraocularPressure extends SplitEventTypeElement
 	}
 
 	/**
-	 * Converts a (POSTed) form to an array of reading models.
-	 * Required when redisplaying form after validation error.
-	 * @param array $readings array POSTed array of readings
-	 * @param string $side
+	 * Remove readings for this element
+	 *
+	 * @return bool
+	 * @throws Exception
 	 */
-	public function convertReadings($readings, $side)
-	{
-		$return = array();
-		$side_id = ($side == 'right') ? 0 : 1;
-		if (is_array($readings)) {
-			foreach ($readings as $reading) {
-				if ($reading['side'] == $side_id) {
-					$reading_model = new OphCiPhasing_Reading();
-					$reading_model->attributes = $reading;
-					$return[] = $reading_model;
-				}
-			}
-		}
-		return $return;
-	}
-
 	protected function beforeDelete()
 	{
 		foreach ($this->readings as $reading) {
@@ -171,106 +155,55 @@ class Element_OphCiPhasing_IntraocularPressure extends SplitEventTypeElement
 	}
 
 	/**
-	 * Save readings
-	 * @todo This probably doesn't belong here, but there doesn't seem to be an easy way
-	 * of doing it through the controller at the moment
-	 */
-	protected function afterSave()
-	{
-		// Check to see if readings have been posted
-		if (isset($_POST['intraocularpressure_readings_valid']) && $_POST['intraocularpressure_readings_valid']) {
-
-			// Get a list of ids so we can keep track of what's been removed
-			$existing_reading_ids = array();
-			foreach ($this->readings as $reading) {
-				$existing_reading_ids[$reading->id] = $reading->id;
-			}
-
-			// Process (any) posted readings
-			$new_readings = (isset($_POST['intraocularpressure_reading'])) ? $_POST['intraocularpressure_reading'] : array();
-			foreach ($new_readings as $reading) {
-
-				// Check to see if side is inactive
-				if ($reading['side'] == 0 && $this->eye_id == 1
-						|| $reading['side'] == 1 && $this->eye_id == 2) {
-					continue;
-				}
-
-				if (isset($reading['id']) && isset($existing_reading_ids[$reading['id']])) {
-
-					// Reading is being updated
-					$reading_model = OphCiPhasing_Reading::model()->findByPk($reading['id']);
-					unset($existing_reading_ids[$reading['id']]);
-
-				} else {
-
-					// Reading is new
-					$reading_model = new OphCiPhasing_Reading();
-					$reading_model->element_id = $this->id;
-
-				}
-
-				// Save reading attributes
-				$reading_model->value = $reading['value'];
-				$reading_model->measurement_timestamp = $reading['measurement_timestamp'];
-				$reading_model->side = $reading['side'];
-				$reading_model->save();
-
-			}
-
-			// Delete remaining (removed) ids
-			OphCiPhasing_Reading::model()->deleteByPk(array_values($existing_reading_ids));
-
-		}
-
-		return parent::afterSave();
-	}
-
-	/**
 	 * Validate readings
-	 * @todo This probably doesn't belong here, but there doesn't seem to be an easy way
-	 * of doing it through the controller at the moment
 	 */
-	protected function beforeValidate()
+	protected function afterValidate()
 	{
-		if (isset($_POST['intraocularpressure_readings_valid']) && $_POST['intraocularpressure_readings_valid']) {
+		foreach (array('right', 'left') as $side) {
+			foreach ($this->{$side . '_readings'} as $i => $reading) {
+				if (!$reading->validate()) {
+					foreach ($reading->getErrors() as $fld => $err) {
+						$this->addError($side . '_reading', ucfirst($side) . ' reading (' .($i+1) . '): ' . implode(', ', $err) );
 
-			// Empty side not allowed
-			if (!isset($_POST['intraocularpressure_reading']) || !$_POST['intraocularpressure_reading']) {
-				$this->addError(null,'At least one reading is required');
-			} else {
-				foreach (array('Left' => 0, 'Right' => 1) as $not_side => $side_id) {
-					if ($this->eye->name != $not_side) {
-						$has_reading = false;
-						foreach ($_POST['intraocularpressure_reading'] as $reading) {
-							if ($reading['side'] == $side_id) {
-								$has_reading = true;
-							}
-						}
-						if (!$has_reading) {
-							$this->addError(null,'At least one reading is required');
-							return parent::beforeValidate();
-						}
-					}
-				}
-
-				// Check that readings validate
-				foreach ($_POST['intraocularpressure_reading'] as $key => $item) {
-					if (($item['side'] == 0 && $this->eye->name != 'Left') || ($item['side'] == 1 && $this->eye->name != 'Right')) {
-						$item_model = new OphCiPhasing_Reading();
-						$item_model->measurement_timestamp = $item['measurement_timestamp'];
-						$item_model->side = $item['side'];
-						$item_model->value = $item['value'];
-						$validate_attributes = array_keys($item_model->getAttributes(false));
-						if (!$item_model->validate($validate_attributes)) {
-							$this->addErrors($item_model->getErrors());
-						}
 					}
 				}
 			}
-
 		}
-		return parent::beforeValidate();
+		return parent::afterValidate();
 	}
 
+
+	public function updateReadings($side, $data)
+	{
+		$side_str = ($side == OphCiPhasing_Reading::RIGHT) ? 'right' : 'left';
+		$curr_by_id = array();
+		$criteria = new CDbCriteria();
+		$criteria->addCondition('element_id = :eid');
+		$criteria->addCondition('side = :sid');
+		$criteria->params = array(':eid' => $this->id, ':sid' => $side);
+		foreach (OphCiPhasing_Reading::model()->findAll($criteria) as $reading) {
+			$curr_by_id[$reading->id] = $reading;
+		}
+
+		foreach ($data as $item) {
+			if ($item['id']) {
+				// this will throw an exception if it doesn't exist, which is probably a good thing
+				// as it suggests that this record has been updated from elsewhere.
+				$reading = $curr_by_id[$item['id']];
+				unset($curr_by_id[$item['id']]);
+			} else {
+				$reading = new OphCiPhasing_Reading();
+				$reading->element_id = $this->id;
+				$reading->side = $side;
+			}
+			$reading->measurement_timestamp = $item['measurement_timestamp'];
+			$reading->value = $item['value'];
+			$reading->save();
+		}
+
+		foreach ($curr_by_id as $old_reading) {
+			error_log($old_reading->value);
+			$old_reading->delete();
+		}
+	}
 }

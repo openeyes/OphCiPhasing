@@ -19,24 +19,71 @@
 
 class DefaultController extends BaseEventTypeController
 {
-	public function actionCreate()
+
+	/**
+	 * Parse the data for the phasing readings
+	 *
+	 * @param $data
+	 * @return array
+	 */
+	private function _parseReadingData($data)
 	{
-		parent::actionCreate();
+		$readings_by_side = array(OphCiPhasing_Reading::RIGHT => array(), OphCiPhasing_Reading::LEFT => array());
+
+		foreach ($data['intraocularpressure_reading'] as $item) {
+			$readings_by_side[$item['side']][] = $item;
+		}
+		return $readings_by_side;
 	}
 
-	public function actionUpdate($id)
+	/**
+	 * Set the reading elements for validation
+	 *
+	 * @param $element
+	 * @param $data
+	 * @param $index
+	 */
+	protected function setComplexAttributes_Element_OphCiPhasing_IntraocularPressure($element, $data, $index)
 	{
-		parent::actionUpdate($id);
+		$data = $this->_parseReadingData($data);
+
+		foreach ($data as $side => $items) {
+			$readings = array();
+			foreach ($items as $item) {
+				$item_model = new OphCiPhasing_Reading();
+				$item_model->measurement_timestamp = $item['measurement_timestamp'];
+				$item_model->side = $item['side'];
+				$item_model->value = $item['value'];
+				$readings[] = $item_model;
+			}
+			if ($side == OphCiPhasing_Reading::RIGHT) {
+				$element->right_readings = $readings;
+			}
+			else {
+				$element->left_readings = $readings;
+			}
+		}
 	}
 
-	public function actionView($id)
+	/**
+	 * Save the readings to the element
+	 *
+	 * @param $element
+	 * @param $data
+	 * @param $index
+	 */
+	protected function saveComplexAttributes_Element_OphCiPhasing_IntraocularPressure($element, $data, $index)
 	{
-		parent::actionView($id);
-	}
-
-	public function actionPrint($id)
-	{
-		parent::actionPrint($id);
+		$data = $this->_parseReadingData($data);
+		// clear out data values if the element doesn't have the given side (the form would still have submitted)
+		if (!$element->hasRight()) {
+			$data[OphCiPhasing_Reading::RIGHT] = array();
+		}
+		if (!$element->hasLeft()) {
+			$data[OphCiPhasing_Reading::LEFT] = array();
+		}
+		$element->updateReadings(OphCiPhasing_Reading::RIGHT, $data[OphCiPhasing_Reading::RIGHT]);
+		$element->updateReadings(OphCiPhasing_Reading::LEFT, $data[OphCiPhasing_Reading::LEFT]);
 	}
 
 }

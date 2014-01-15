@@ -28,7 +28,7 @@
 			<tbody>
 				<?php foreach ($element->{strtolower($side).'_readings'} as $reading) {?>
 				<tr>
-					<td><?php echo date('g:ia',strtotime($reading->measurement_timestamp))?> - </td>
+					<td><?php echo date('G:i',strtotime($reading->measurement_timestamp))?> - </td>
 					<td><?php echo $reading->value ?> mm Hg</td>
 				</tr>
 				<?php }?>
