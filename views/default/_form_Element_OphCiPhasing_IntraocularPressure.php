@@ -48,9 +48,8 @@ $key = 0;
 							</thead>
 							<tbody class="readings-right">
 								<?php
-								$right_readings = (isset($_POST['intraocularpressure_readings_valid']) ? $element->convertReadings(@$_POST['intraocularpressure_reading'], 'right') : $element->right_readings);
-									if ($right_readings) {
-										foreach ($right_readings as $index => $reading) {
+									if ($element->right_readings) {
+										foreach ($element->right_readings as $index => $reading) {
 											$this->renderPartial('_form_Element_OphCiPhasing_IntraocularPressure_Reading', array(
 												'key' => $key,
 												'reading' => $reading,
@@ -107,9 +106,9 @@ $key = 0;
 							</thead>
 							<tbody class="readings-left">
 								<?php
-								$left_readings = (isset($_POST['intraocularpressure_readings_valid']) ? $element->convertReadings(@$_POST['intraocularpressure_reading'], 'left') : $element->left_readings);
-									if ($left_readings) {
-										foreach ($left_readings as $index => $reading) {
+
+									if ($element->left_readings) {
+										foreach ($element->left_readings as $index => $reading) {
 											$this->renderPartial('_form_Element_OphCiPhasing_IntraocularPressure_Reading', array(
 												'key' => $key,
 												'reading' => $reading,
