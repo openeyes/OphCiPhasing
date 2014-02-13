@@ -39,7 +39,6 @@ CREATE TABLE `et_ophciphasing_intraocularpressure_version` (
 		$this->dropPrimaryKey('id','et_ophciphasing_intraocularpressure_version');
 
 		$this->createIndex('et_ophciphasing_intraocularpressure_aid_fk','et_ophciphasing_intraocularpressure_version','id');
-		$this->addForeignKey('et_ophciphasing_intraocularpressure_aid_fk','et_ophciphasing_intraocularpressure_version','id','et_ophciphasing_intraocularpressure','id');
 
 		$this->addColumn('et_ophciphasing_intraocularpressure_version','version_date',"datetime not null default '1900-01-01 00:00:00'");
 
@@ -101,7 +100,6 @@ CREATE TABLE `ophciphasing_reading_version` (
 		$this->dropPrimaryKey('id','ophciphasing_reading_version');
 
 		$this->createIndex('ophciphasing_reading_aid_fk','ophciphasing_reading_version','id');
-		$this->addForeignKey('ophciphasing_reading_aid_fk','ophciphasing_reading_version','id','ophciphasing_reading','id');
 
 		$this->addColumn('ophciphasing_reading_version','version_date',"datetime not null default '1900-01-01 00:00:00'");
 
@@ -121,9 +119,6 @@ CREATE TABLE `ophciphasing_reading_version` (
 	public function down()
 	{
 		$this->dropColumn('ophciphasing_instrument','deleted');
-		$this->dropColumn('ophciphasing_reading','deleted');
-
-		$this->dropColumn('et_ophciphasing_intraocularpressure','deleted');
 
 		$this->dropTable('et_ophciphasing_intraocularpressure_version');
 		$this->dropTable('ophciphasing_instrument_version');
