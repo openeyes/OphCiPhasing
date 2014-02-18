@@ -107,9 +107,6 @@ CREATE TABLE `ophciphasing_reading_version` (
 		$this->addPrimaryKey('version_id','ophciphasing_reading_version','version_id');
 		$this->alterColumn('ophciphasing_reading_version','version_id','int(10) unsigned NOT NULL AUTO_INCREMENT');
 
-		$this->addColumn('et_ophciphasing_intraocularpressure','deleted','tinyint(1) unsigned not null');
-		$this->addColumn('et_ophciphasing_intraocularpressure_version','deleted','tinyint(1) unsigned not null');
-
 		$this->addColumn('ophciphasing_instrument','deleted','tinyint(1) unsigned not null');
 		$this->addColumn('ophciphasing_instrument_version','deleted','tinyint(1) unsigned not null');
 		$this->addColumn('ophciphasing_reading','deleted','tinyint(1) unsigned not null');
