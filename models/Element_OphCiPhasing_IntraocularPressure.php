@@ -186,7 +186,7 @@ class Element_OphCiPhasing_IntraocularPressure extends SplitEventTypeElement
 		}
 
 		foreach ($data as $item) {
-			if ($item['id']) {
+			if (@$item['id']) {
 				// this will throw an exception if it doesn't exist, which is probably a good thing
 				// as it suggests that this record has been updated from elsewhere.
 				$reading = $curr_by_id[$item['id']];
