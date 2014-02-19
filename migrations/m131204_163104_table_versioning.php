@@ -109,8 +109,6 @@ CREATE TABLE `ophciphasing_reading_version` (
 
 		$this->addColumn('ophciphasing_instrument','deleted','tinyint(1) unsigned not null');
 		$this->addColumn('ophciphasing_instrument_version','deleted','tinyint(1) unsigned not null');
-		$this->addColumn('ophciphasing_reading','deleted','tinyint(1) unsigned not null');
-		$this->addColumn('ophciphasing_reading_version','deleted','tinyint(1) unsigned not null');
 	}
 
 	public function down()
