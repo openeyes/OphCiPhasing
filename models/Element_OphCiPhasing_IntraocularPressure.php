@@ -114,11 +114,6 @@ class Element_OphCiPhasing_IntraocularPressure extends SplitEventTypeElement
 		);
 	}
 
-	public function getInstrumentOptions()
-	{
-		return CHtml::listData(OphCiPhasing_Instrument::model()->findAll(array('order' => 'display_order')), 'id', 'name') ;
-	}
-
 	/**
 	 * Retrieves a list of models based on the current search/filter conditions.
 	 * @return CActiveDataProvider the data provider that can return the models based on the search/filter conditions.

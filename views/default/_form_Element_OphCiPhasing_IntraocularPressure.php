@@ -17,7 +17,6 @@
  * @license http://www.gnu.org/licenses/gpl-3.0.html The GNU General Public License V3.0
  */
 
-$instruments = $element->getInstrumentOptions();
 $key = 0;
 ?>
 <section class="element <?php echo $element->elementType->class_name ?>"
@@ -31,7 +30,7 @@ $key = 0;
 		<div class="element-eye right-eye column side left<?php if (!$element->hasRight()) { ?> inactive<?php } ?>" data-side="right">
 			<div class="active-form">
 				<a href="#" class="icon-remove-side remove-side">Remove side</a>
-				<?php echo $form->dropDownList($element, 'right_instrument_id', $instruments, array(), false, array('label' => 2, 'field' => 4))?>
+				<?php echo $form->dropDownList($element, 'right_instrument_id', CHtml::listData(OphCiPhasing_Instrument::model()->notDeletedOrPk($element->right_instrument_id)->findAll(array('order' => 'display_order')),'id','name'), array(), false, array('label' => 2, 'field' => 4))?>
 				<?php echo $form->radioBoolean($element, 'right_dilated', array(), array('label' => 2, 'field' => 10))?>
 				<fieldset class="row field-row">
 					<legend class="large-2 column">
@@ -89,7 +88,7 @@ $key = 0;
 		<div class="element-eye left-eye column side right<?php if (!$element->hasLeft()) { ?> inactive<?php } ?>" data-side="left">
 			<div class="active-form">
 				<a href="#" class="icon-remove-side remove-side">Remove side</a>
-				<?php echo $form->dropDownList($element, 'left_instrument_id', $instruments, array(), false, array('label' => 2, 'field' => 4))?>
+				<?php echo $form->dropDownList($element, 'left_instrument_id', CHtml::listData(OphCiPhasing_Instrument::model()->notDeletedOrPk($element->left_instrument_id)->findAll(array('order' => 'display_order')),'id','name'), array(), false, array('label' => 2, 'field' => 4))?>
 				<?php echo $form->radioBoolean($element, 'left_dilated', array(), array('label' => 2, 'field' => 10))?>
 				<fieldset class="row field-row">
 					<legend class="large-2 column">
