@@ -49,7 +49,7 @@ $key = 0;
 								<?php
 									if ($element->right_readings) {
 										foreach ($element->right_readings as $index => $reading) {
-											$this->renderPartial('_form_Element_OphCiPhasing_IntraocularPressure_Reading', array(
+											$this->renderPartial('form_Element_OphCiPhasing_IntraocularPressure_Reading', array(
 												'key' => $key,
 												'reading' => $reading,
 												'side' => $reading->side,
@@ -58,7 +58,7 @@ $key = 0;
 											$key++;
 										}
 									} else {
-										$this->renderPartial('_form_Element_OphCiPhasing_IntraocularPressure_Reading', array(
+										$this->renderPartial('form_Element_OphCiPhasing_IntraocularPressure_Reading', array(
 											'key' => $key,
 											'side' => 0,
 											'no_remove' => true
@@ -108,7 +108,7 @@ $key = 0;
 
 									if ($element->left_readings) {
 										foreach ($element->left_readings as $index => $reading) {
-											$this->renderPartial('_form_Element_OphCiPhasing_IntraocularPressure_Reading', array(
+											$this->renderPartial('form_Element_OphCiPhasing_IntraocularPressure_Reading', array(
 												'key' => $key,
 												'reading' => $reading,
 												'side' => $reading->side,
@@ -117,7 +117,7 @@ $key = 0;
 											$key++;
 										}
 									} else {
-										$this->renderPartial('_form_Element_OphCiPhasing_IntraocularPressure_Reading', array(
+										$this->renderPartial('form_Element_OphCiPhasing_IntraocularPressure_Reading', array(
 											'key' => $key,
 											'side' => 1,
 											'no_remove' => true
@@ -148,7 +148,7 @@ $key = 0;
 </section>
 <script id="intraocularpressure_reading_template" type="text/html">
 	<?php
-	$this->renderPartial('_form_Element_OphCiPhasing_IntraocularPressure_Reading', array(
+	$this->renderPartial('form_Element_OphCiPhasing_IntraocularPressure_Reading', array(
 			'key' => '{{key}}',
 			'side' => '{{side}}',
 	));

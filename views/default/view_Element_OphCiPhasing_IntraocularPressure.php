@@ -17,24 +17,21 @@
  * @license http://www.gnu.org/licenses/gpl-3.0.html The GNU General Public License V3.0
  */
 ?>
-
-<section class="element">
-	<div class="element-data element-eyes row">
-		<div class="element-eye right-eye column">
-			<?php
-			$this->renderPartial('_view_Element_OphCiPhasing_IntraocularPressure_Side', array(
-					'element' => $element,
-					'side' => 'Right',
-			));
-			?>
-		</div>
-		<div class="element-eye left-eye column">
-			<?php
-			$this->renderPartial('_view_Element_OphCiPhasing_IntraocularPressure_Side', array(
-					'element' => $element,
-					'side' => 'Left',
-			));
-			?>
-		</div>
+<div class="element-data element-eyes row">
+	<div class="element-eye right-eye column">
+		<?php
+		$this->renderPartial('view_Element_OphCiPhasing_IntraocularPressure_Side', array(
+			'element' => $element,
+			'side' => 'Right',
+		));
+		?>
 	</div>
-</section>
+	<div class="element-eye left-eye column">
+		<?php
+		$this->renderPartial('view_Element_OphCiPhasing_IntraocularPressure_Side', array(
+			'element' => $element,
+			'side' => 'Left',
+		));
+		?>
+	</div>
+</div>
