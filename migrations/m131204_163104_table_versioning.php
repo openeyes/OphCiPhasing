@@ -90,7 +90,6 @@ CREATE TABLE `ophciphasing_reading_version` (
 	KEY `acv_ophciphasing_reading_last_modified_user_id_fk` (`last_modified_user_id`),
 	KEY `acv_ophciphasing_reading_created_user_id_fk` (`created_user_id`),
 	KEY `acv_ophciphasing_reading_element_id_fk` (`element_id`),
-	CONSTRAINT `acv_ophciphasing_reading_element_id_fk` FOREIGN KEY (`element_id`) REFERENCES `et_ophciphasing_intraocularpressure` (`id`),
 	CONSTRAINT `acv_ophciphasing_reading_created_user_id_fk` FOREIGN KEY (`created_user_id`) REFERENCES `user` (`id`),
 	CONSTRAINT `acv_ophciphasing_reading_last_modified_user_id_fk` FOREIGN KEY (`last_modified_user_id`) REFERENCES `user` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci
