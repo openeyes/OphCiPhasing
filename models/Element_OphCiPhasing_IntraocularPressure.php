@@ -191,7 +191,11 @@ class Element_OphCiPhasing_IntraocularPressure extends SplitEventTypeElement
 				$reading->element_id = $this->id;
 				$reading->side = $side;
 			}
-			$reading->measurement_timestamp = $item['measurement_timestamp'];
+			$mesTm = $item['measurement_timestamp'];
+			if(!strpos($item['measurement_timestamp'], ':')){
+				$mesTm = substr_replace( $mesTm, ':', -2, 0);
+			}
+			$reading->measurement_timestamp = $mesTm;
 			$reading->value = $item['value'];
 			$reading->save();
 		}
