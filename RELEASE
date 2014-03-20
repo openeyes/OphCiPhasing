@@ -1,6 +1,13 @@
 Release History
 ===============
 
+1.6.0
+-----
++ Asset refactoring
++ Remove POST handling from models
++ Rationalise db character set and collation
++ 24hr clock times are converted to 12hr time
+
 1.5.1
 -----
 + Support event locking and delete reason/request
