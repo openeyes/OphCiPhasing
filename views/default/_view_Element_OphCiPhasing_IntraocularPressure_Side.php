@@ -38,7 +38,7 @@
 	<?php if ($element->{strtolower($side).'_comments'}) {?>
 		<div class="data-row">
 			<div class="field-value">
-				(<?php echo $element->{strtolower($side).'_comments'} ?>)
+				(<?php echo Yii::app()->format->Ntext($element->{strtolower($side).'_comments'}) ?>)
 			</div>
 		</div>
 	<?php }?>
