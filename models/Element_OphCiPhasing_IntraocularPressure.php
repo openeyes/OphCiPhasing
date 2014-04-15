@@ -201,7 +201,6 @@ class Element_OphCiPhasing_IntraocularPressure extends SplitEventTypeElement
 		}
 
 		foreach ($curr_by_id as $old_reading) {
-			error_log($old_reading->value);
 			$old_reading->delete();
 		}
 	}
