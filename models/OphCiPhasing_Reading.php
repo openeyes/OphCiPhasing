@@ -27,7 +27,7 @@
  * @property string $measurement_timestamp
 
  */
-class OphCiPhasing_Reading extends BaseActiveRecord
+class OphCiPhasing_Reading extends BaseActiveRecordVersioned
 {
 	const RIGHT = 0;
 	const LEFT = 1;
