@@ -23,15 +23,20 @@ class DefaultController extends BaseEventTypeController
 	/**
 	 * Parse the data for the phasing readings
 	 *
-	 * @param $data
+	 * @param int $eye_id
+	 * @param array $data
 	 * @return array
 	 */
-	private function _parseReadingData($data)
+	private function _parseReadingData($eye_id, array $data)
 	{
 		$readings_by_side = array(OphCiPhasing_Reading::RIGHT => array(), OphCiPhasing_Reading::LEFT => array());
 
+		$sides = array();
+		if ($eye_id == Eye::LEFT || $eye_id == Eye::BOTH) $sides[] = OphCiPhasing_Reading::LEFT;
+		if ($eye_id == Eye::RIGHT || $eye_id == Eye::BOTH) $sides[] = OphCiPhasing_Reading::RIGHT;
+
 		foreach ($data['intraocularpressure_reading'] as $item) {
-			$readings_by_side[$item['side']][] = $item;
+			if (in_array($item['side'], $sides)) $readings_by_side[$item['side']][] = $item;
 		}
 		return $readings_by_side;
 	}
@@ -45,7 +50,7 @@ class DefaultController extends BaseEventTypeController
 	 */
 	protected function setComplexAttributes_Element_OphCiPhasing_IntraocularPressure($element, $data, $index)
 	{
-		$data = $this->_parseReadingData($data);
+		$data = $this->_parseReadingData($element->eye_id, $data);
 
 		foreach ($data as $side => $items) {
 			$readings = array();
@@ -74,16 +79,8 @@ class DefaultController extends BaseEventTypeController
 	 */
 	protected function saveComplexAttributes_Element_OphCiPhasing_IntraocularPressure($element, $data, $index)
 	{
-		$data = $this->_parseReadingData($data);
-		// clear out data values if the element doesn't have the given side (the form would still have submitted)
-		if (!$element->hasRight()) {
-			$data[OphCiPhasing_Reading::RIGHT] = array();
-		}
-		if (!$element->hasLeft()) {
-			$data[OphCiPhasing_Reading::LEFT] = array();
-		}
+		$data = $this->_parseReadingData($element->eye_id, $data);
 		$element->updateReadings(OphCiPhasing_Reading::RIGHT, $data[OphCiPhasing_Reading::RIGHT]);
 		$element->updateReadings(OphCiPhasing_Reading::LEFT, $data[OphCiPhasing_Reading::LEFT]);
 	}
-
 }

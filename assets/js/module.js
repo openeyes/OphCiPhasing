@@ -66,9 +66,7 @@ $(document).ready(function() {
 			show_physical_side = 'left';
 		}
 
-		$(this).closest('.element').find('input.sideField').each(function() {
-			$(this).val(eye_side);
-		});
+		$(this).closest('.element').find('input.sideField').val(eye_side);
 
 		// If other side is already inactive, then activate it (can't have both sides inactive)
 		$(this).closest('.element').find('.side.'+show_physical_side).removeClass('inactive');
@@ -81,9 +79,7 @@ $(document).ready(function() {
 
 	$(this).delegate('#event-content .side .inactive-form a', 'click', function(e) {
 		var element = $(this).closest('.element');
-		element.find('input.sideField').each(function() {
-			$(this).val(3); // Both eyes
-		});
+		element.find('input.sideField').val(3);  // Both eyes
 
 		element.find('.side').removeClass('inactive');
 
