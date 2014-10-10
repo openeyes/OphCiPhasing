@@ -92,7 +92,7 @@ $(document).ready(function() {
 
 	handleButton($('#et_print'),function(e) {
 		e.preventDefault();
-		printEvent();
+		printEvent(null);
 	});
 });
 
