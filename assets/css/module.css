@@ -1,4 +1,3 @@
-@charset "UTF-8";
 /** Phasing */
 /**
  * OpenEyes
@@ -23,9 +22,9 @@
 }
 /* line 19, ../sass/components/_event.scss */
 .event .event-content {
-  background-image: url('../img/watermark.png?1387445455');
+  background-image: url('../img/watermark.png?1411029092');
 }
 /* line 22, ../sass/components/_event.scss */
 .event .event-title {
-  background-image: url('../img/medium.png?1383822394');
+  background-image: url('../img/medium.png?1411029092');
 }
