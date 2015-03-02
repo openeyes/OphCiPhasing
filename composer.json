@@ -1,5 +1,5 @@
 {
-  "name" : "openeyes/OphCiPhasing",
+  "name" : "openeyes/oph-ci-phasing",
   "description": "Phasing module for OpenEyes, allows recording of multiple timed IOP values in a single event",
   "type": "openeyes-module",
   "require": {
