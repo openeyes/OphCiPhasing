@@ -29,85 +29,85 @@
  */
 class OphCiPhasing_Reading extends BaseActiveRecordVersioned
 {
-	const RIGHT = 0;
-	const LEFT = 1;
+    const RIGHT = 0;
+    const LEFT = 1;
 
-	/**
-	 * Returns the static model of the specified AR class.
-	 * @return OphCiPhasing_Reading the static model class
-	 */
-	public static function model($className=__CLASS__)
-	{
-		return parent::model($className);
-	}
+    /**
+     * Returns the static model of the specified AR class.
+     * @return OphCiPhasing_Reading the static model class
+     */
+    public static function model($className=__CLASS__)
+    {
+        return parent::model($className);
+    }
 
-	/**
-	 * @return string the associated database table name
-	 */
-	public function tableName()
-	{
-		return 'ophciphasing_reading';
-	}
+    /**
+     * @return string the associated database table name
+     */
+    public function tableName()
+    {
+        return 'ophciphasing_reading';
+    }
 
-	/**
-	 * @return array validation rules for model attributes.
-	 */
-	public function rules()
-	{
-		return array(
-				array('side, value, measurement_timestamp', 'required'),
-				array('value', 'numerical'),
-				array('id, element_id, side, value, measurement_timestamp', 'safe', 'on'=>'search'),
-		);
-	}
+    /**
+     * @return array validation rules for model attributes.
+     */
+    public function rules()
+    {
+        return array(
+                array('side, value, measurement_timestamp', 'required'),
+                array('value', 'numerical'),
+                array('id, element_id, side, value, measurement_timestamp', 'safe', 'on'=>'search'),
+        );
+    }
 
-	/**
-	 * @return array relational rules.
-	 */
-	public function relations()
-	{
-		return array(
-				'element' => array(self::BELONGS_TO, 'Element_OphCiPhasing_IntraocularPressure', 'element_id'),
-		);
-	}
+    /**
+     * @return array relational rules.
+     */
+    public function relations()
+    {
+        return array(
+                'element' => array(self::BELONGS_TO, 'Element_OphCiPhasing_IntraocularPressure', 'element_id'),
+        );
+    }
 
-	/**
-	 * @return array customized attribute labels (name=>label)
-	 */
-	public function attributeLabels()
-	{
-		return array(
-				'id' => 'ID',
-				'element_id' => 'Element',
-				'value' => 'Reading',
-				'measurement_timestamp' => 'Time',
-				'side' => 'Side',
-		);
-	}
+    /**
+     * @return array customized attribute labels (name=>label)
+     */
+    public function attributeLabels()
+    {
+        return array(
+                'id' => 'ID',
+                'element_id' => 'Element',
+                'value' => 'Reading',
+                'measurement_timestamp' => 'Time',
+                'side' => 'Side',
+        );
+    }
 
-	/**
-	 * Retrieves a list of models based on the current search/filter conditions.
-	 * @return CActiveDataProvider the data provider that can return the models based on the search/filter conditions.
-	 */
-	public function search()
-	{
-		$criteria=new CDbCriteria;
-		$criteria->compare('id',$this->id,true);
-		return new CActiveDataProvider(get_class($this), array(
-				'criteria'=>$criteria,
-		));
-	}
+    /**
+     * Retrieves a list of models based on the current search/filter conditions.
+     * @return CActiveDataProvider the data provider that can return the models based on the search/filter conditions.
+     */
+    public function search()
+    {
+        $criteria=new CDbCriteria;
+        $criteria->compare('id', $this->id, true);
+        return new CActiveDataProvider(get_class($this), array(
+                'criteria'=>$criteria,
+        ));
+    }
 
-	/**
-	 * check the time entry is valid
-	 *
-	 * @return bool
-	 */
-	public function beforeValidate()
-	{
-		if (!preg_match("/^(([01]?[0-9])|(2[0-3])):?[0-5][0-9]$/", $this->measurement_timestamp)) {
-			$this->addError('measurement_timestamp','Invalid ' . $this->getAttributeLabel('measurement_timestamp'));
-		}
-		return parent::beforeValidate();
-	}
+    /**
+     * check the time entry is valid
+     *
+     * @return bool
+     */
+    public function beforeValidate()
+    {
+        if (!preg_match("/^(([01]?[0-9])|(2[0-3])):?[0-5][0-9]$/", $this->measurement_timestamp)) {
+            $this->addError('measurement_timestamp', 'Invalid ' . $this->getAttributeLabel('measurement_timestamp'));
+        }
+        return parent::beforeValidate();
+    }
 }

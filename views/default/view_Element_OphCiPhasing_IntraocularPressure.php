@@ -20,18 +20,18 @@
 <div class="element-data element-eyes row">
 	<div class="element-eye right-eye column">
 		<?php
-		$this->renderPartial('view_Element_OphCiPhasing_IntraocularPressure_Side', array(
-			'element' => $element,
-			'side' => 'Right',
-		));
-		?>
+        $this->renderPartial('view_Element_OphCiPhasing_IntraocularPressure_Side', array(
+            'element' => $element,
+            'side' => 'Right',
+        ));
+        ?>
 	</div>
 	<div class="element-eye left-eye column">
 		<?php
-		$this->renderPartial('view_Element_OphCiPhasing_IntraocularPressure_Side', array(
-			'element' => $element,
-			'side' => 'Left',
-		));
-		?>
+        $this->renderPartial('view_Element_OphCiPhasing_IntraocularPressure_Side', array(
+            'element' => $element,
+            'side' => 'Left',
+        ));
+        ?>
 	</div>
 </div>

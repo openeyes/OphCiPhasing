@@ -19,68 +19,72 @@
 
 class DefaultController extends BaseEventTypeController
 {
+    /**
+     * Parse the data for the phasing readings
+     *
+     * @param int $eye_id
+     * @param array $data
+     * @return array
+     */
+    private function _parseReadingData($eye_id, array $data)
+    {
+        $readings_by_side = array(OphCiPhasing_Reading::RIGHT => array(), OphCiPhasing_Reading::LEFT => array());
 
-	/**
-	 * Parse the data for the phasing readings
-	 *
-	 * @param int $eye_id
-	 * @param array $data
-	 * @return array
-	 */
-	private function _parseReadingData($eye_id, array $data)
-	{
-		$readings_by_side = array(OphCiPhasing_Reading::RIGHT => array(), OphCiPhasing_Reading::LEFT => array());
+        $sides = array();
+        if ($eye_id == Eye::LEFT || $eye_id == Eye::BOTH) {
+            $sides[] = OphCiPhasing_Reading::LEFT;
+        }
+        if ($eye_id == Eye::RIGHT || $eye_id == Eye::BOTH) {
+            $sides[] = OphCiPhasing_Reading::RIGHT;
+        }
 
-		$sides = array();
-		if ($eye_id == Eye::LEFT || $eye_id == Eye::BOTH) $sides[] = OphCiPhasing_Reading::LEFT;
-		if ($eye_id == Eye::RIGHT || $eye_id == Eye::BOTH) $sides[] = OphCiPhasing_Reading::RIGHT;
+        foreach ($data['intraocularpressure_reading'] as $item) {
+            if (in_array($item['side'], $sides)) {
+                $readings_by_side[$item['side']][] = $item;
+            }
+        }
+        return $readings_by_side;
+    }
 
-		foreach ($data['intraocularpressure_reading'] as $item) {
-			if (in_array($item['side'], $sides)) $readings_by_side[$item['side']][] = $item;
-		}
-		return $readings_by_side;
-	}
+    /**
+     * Set the reading elements for validation
+     *
+     * @param $element
+     * @param $data
+     * @param $index
+     */
+    protected function setComplexAttributes_Element_OphCiPhasing_IntraocularPressure($element, $data, $index)
+    {
+        $data = $this->_parseReadingData($element->eye_id, $data);
 
-	/**
-	 * Set the reading elements for validation
-	 *
-	 * @param $element
-	 * @param $data
-	 * @param $index
-	 */
-	protected function setComplexAttributes_Element_OphCiPhasing_IntraocularPressure($element, $data, $index)
-	{
-		$data = $this->_parseReadingData($element->eye_id, $data);
+        foreach ($data as $side => $items) {
+            $readings = array();
+            foreach ($items as $item) {
+                $item_model = new OphCiPhasing_Reading();
+                $item_model->measurement_timestamp = $item['measurement_timestamp'];
+                $item_model->side = $item['side'];
+                $item_model->value = $item['value'];
+                $readings[] = $item_model;
+            }
+            if ($side == OphCiPhasing_Reading::RIGHT) {
+                $element->right_readings = $readings;
+            } else {
+                $element->left_readings = $readings;
+            }
+        }
+    }
 
-		foreach ($data as $side => $items) {
-			$readings = array();
-			foreach ($items as $item) {
-				$item_model = new OphCiPhasing_Reading();
-				$item_model->measurement_timestamp = $item['measurement_timestamp'];
-				$item_model->side = $item['side'];
-				$item_model->value = $item['value'];
-				$readings[] = $item_model;
-			}
-			if ($side == OphCiPhasing_Reading::RIGHT) {
-				$element->right_readings = $readings;
-			}
-			else {
-				$element->left_readings = $readings;
-			}
-		}
-	}
-
-	/**
-	 * Save the readings to the element
-	 *
-	 * @param $element
-	 * @param $data
-	 * @param $index
-	 */
-	protected function saveComplexAttributes_Element_OphCiPhasing_IntraocularPressure($element, $data, $index)
-	{
-		$data = $this->_parseReadingData($element->eye_id, $data);
-		$element->updateReadings(OphCiPhasing_Reading::RIGHT, $data[OphCiPhasing_Reading::RIGHT]);
-		$element->updateReadings(OphCiPhasing_Reading::LEFT, $data[OphCiPhasing_Reading::LEFT]);
-	}
+    /**
+     * Save the readings to the element
+     *
+     * @param $element
+     * @param $data
+     * @param $index
+     */
+    protected function saveComplexAttributes_Element_OphCiPhasing_IntraocularPressure($element, $data, $index)
+    {
+        $data = $this->_parseReadingData($element->eye_id, $data);
+        $element->updateReadings(OphCiPhasing_Reading::RIGHT, $data[OphCiPhasing_Reading::RIGHT]);
+        $element->updateReadings(OphCiPhasing_Reading::LEFT, $data[OphCiPhasing_Reading::LEFT]);
+    }
 }

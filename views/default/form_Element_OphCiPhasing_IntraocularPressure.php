@@ -27,7 +27,9 @@ $key = 0;
 	<div class="element-fields element-eyes row">
 		<input type="hidden" name="intraocularpressure_readings_valid" value="1" />
 		<?php echo $form->hiddenInput($element, 'eye_id', false, array('class' => 'sideField')); ?>
-		<div class="element-eye right-eye column side left<?php if (!$element->hasRight()) { ?> inactive<?php } ?>" data-side="right">
+		<div class="element-eye right-eye column side left<?php if (!$element->hasRight()) {
+    ?> inactive<?php 
+} ?>" data-side="right">
 			<div class="active-form">
 				<a href="#" class="icon-remove-side remove-side">Remove side</a>
 				<?php echo $form->dropDownList($element, 'right_instrument_id', 'OphCiPhasing_Instrument', array(), false, array('label' => 2, 'field' => 4))?>
@@ -47,25 +49,25 @@ $key = 0;
 							</thead>
 							<tbody class="readings-right">
 								<?php
-									if ($element->right_readings) {
-										foreach ($element->right_readings as $index => $reading) {
-											$this->renderPartial('form_Element_OphCiPhasing_IntraocularPressure_Reading', array(
-												'key' => $key,
-												'reading' => $reading,
-												'side' => $reading->side,
-												'no_remove' => ($index == 0)
-											));
-											$key++;
-										}
-									} else {
-										$this->renderPartial('form_Element_OphCiPhasing_IntraocularPressure_Reading', array(
-											'key' => $key,
-											'side' => 0,
-											'no_remove' => true
-										));
-										$key++;
-									}
-								?>
+                                    if ($element->right_readings) {
+                                        foreach ($element->right_readings as $index => $reading) {
+                                            $this->renderPartial('form_Element_OphCiPhasing_IntraocularPressure_Reading', array(
+                                                'key' => $key,
+                                                'reading' => $reading,
+                                                'side' => $reading->side,
+                                                'no_remove' => ($index == 0)
+                                            ));
+                                            $key++;
+                                        }
+                                    } else {
+                                        $this->renderPartial('form_Element_OphCiPhasing_IntraocularPressure_Reading', array(
+                                            'key' => $key,
+                                            'side' => 0,
+                                            'no_remove' => true
+                                        ));
+                                        $key++;
+                                    }
+                                ?>
 							</tbody>
 							<tfoot>
 								<tr>
@@ -85,7 +87,9 @@ $key = 0;
 				</div>
 			</div>
 		</div>
-		<div class="element-eye left-eye column side right<?php if (!$element->hasLeft()) { ?> inactive<?php } ?>" data-side="left">
+		<div class="element-eye left-eye column side right<?php if (!$element->hasLeft()) {
+    ?> inactive<?php 
+} ?>" data-side="left">
 			<div class="active-form">
 				<a href="#" class="icon-remove-side remove-side">Remove side</a>
 				<?php echo $form->dropDownList($element, 'left_instrument_id', 'OphCiPhasing_Instrument', array(), false, array('label' => 2, 'field' => 4))?>
@@ -106,25 +110,25 @@ $key = 0;
 							<tbody class="readings-left">
 								<?php
 
-									if ($element->left_readings) {
-										foreach ($element->left_readings as $index => $reading) {
-											$this->renderPartial('form_Element_OphCiPhasing_IntraocularPressure_Reading', array(
-												'key' => $key,
-												'reading' => $reading,
-												'side' => $reading->side,
-												'no_remove' => ($index == 0)
-											));
-											$key++;
-										}
-									} else {
-										$this->renderPartial('form_Element_OphCiPhasing_IntraocularPressure_Reading', array(
-											'key' => $key,
-											'side' => 1,
-											'no_remove' => true
-										));
-										$key++;
-									}
-								?>
+                                    if ($element->left_readings) {
+                                        foreach ($element->left_readings as $index => $reading) {
+                                            $this->renderPartial('form_Element_OphCiPhasing_IntraocularPressure_Reading', array(
+                                                'key' => $key,
+                                                'reading' => $reading,
+                                                'side' => $reading->side,
+                                                'no_remove' => ($index == 0)
+                                            ));
+                                            $key++;
+                                        }
+                                    } else {
+                                        $this->renderPartial('form_Element_OphCiPhasing_IntraocularPressure_Reading', array(
+                                            'key' => $key,
+                                            'side' => 1,
+                                            'no_remove' => true
+                                        ));
+                                        $key++;
+                                    }
+                                ?>
 							</tbody>
 							<tfoot>
 								<tr>
@@ -148,9 +152,9 @@ $key = 0;
 </section>
 <script id="intraocularpressure_reading_template" type="text/html">
 	<?php
-	$this->renderPartial('form_Element_OphCiPhasing_IntraocularPressure_Reading', array(
-			'key' => '{{key}}',
-			'side' => '{{side}}',
-	));
-	?>
+    $this->renderPartial('form_Element_OphCiPhasing_IntraocularPressure_Reading', array(
+            'key' => '{{key}}',
+            'side' => '{{side}}',
+    ));
+    ?>
 </script>

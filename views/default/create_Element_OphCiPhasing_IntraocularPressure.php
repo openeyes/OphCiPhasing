@@ -19,7 +19,7 @@
 ?>
 <?php
 $this->renderPartial(
-	'_' . $element->form_view,
-	array('element' => $element, 'data' => $data, 'form' => $form)
+    '_' . $element->form_view,
+    array('element' => $element, 'data' => $data, 'form' => $form)
 );
 ?>
