@@ -1,6 +1,5 @@
-OphCiPhasing
-============
+## THIS REPOSITORY IS NO LONGER IN USE
 
-The phasing module allows the recording of multiple timed IOP values in a single event.
+As of Openeyes release 1.12.1, the OphCiPhasing module has been merged into the core [openeyes](https://github.com/openeyes/openeyes) repository.
 
-Initial version is 1.3.0
+This repository is kept for historic purposes only
